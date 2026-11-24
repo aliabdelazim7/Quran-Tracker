@@ -1,36 +1,195 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# رحلتي مع القرآن (Rehlaty Ma'a Al-Quran)
+### الرفيق القرآني الذكي لمتابعة الحفظ، جلسات الشيخ، والمراجعة المستمرة
 
-## Getting Started
+تطبيق ويب تقدمي (PWA) متكامل وموجّه باللغة العربية أولاً، صُمم ليكون رفيقاً شخصياً ومحفزاً هادئاً لكل مسلم في رحلته مع القرآن الكريم. يحل التطبيق مشكلات نسيان مواضع التوقف، تفلت المحفوظ، تشتت التكليفات مع الشيخ، وعدم انتظام جداول الحلقات، وانقطاع الحماس بعد فترات الغياب.
 
-First, run the development server:
+---
 
+## 🌟 أبرز مميزات التطبيق
+
+1. **حساب دقيق وفق المصحف العثماني وحفص عن عاصم (6236 آية):**
+   - لا أرقام عشوائية أو صفحات ثابتة؛ يتم احتساب التقدم بدقة الآية الواحدة.
+   - منع احتساب الآيات المكررة أو المتداخلة مرتين نهائياً (`Set`-based Ayah tracking).
+   - التمييز الصارم بين: **المتقن والمثبت ⭐**، **تم تسميعه ✅**، **قيد الحفظ 🌱**، **والمتبقي ⏳**.
+
+2. **تحديد حر وغير مقيد للمقاطع القرآنية:**
+   - اختيار أي موضع عبر (السورة، من آية، السورة، إلى آية).
+   - دعم كامل للمقاطع التي تعبر حدود السور (Cross-Surah Ranges).
+   - اختصارات سريعة للسورة الكاملة، الجزء، والربع كخيارات تيسيرية وليست قيوداً إجبارية.
+
+3. **سجل مرن لمتابعة جلسات الشيخ والحلقات:**
+   - دعم الجداول غير المنتظمة (أسبوع مرتان، أسبوع بلا حضور، أسبوع 4 مرات).
+   - تسجيل مقاطع متعددة في الجلسة الواحدة مع **تقييم مستقل من الشيخ لكل مقطع** (ممتاز، جيد جداً، جيد، يحتاج تمكين، إعادة التسميع).
+   - التحديث التلقائي لحالة المحفوظ في قاعدة البيانات بناءً على تقييم الشيخ.
+   - تسجيل الواجب الجديد المكلف به للقاء القادم في أقل من دقيقة.
+
+4. **نظام المراجعة الذكي والمؤقت المدمج:**
+   - جدول ذكي للمراجعات المستحقة اليوم، المتأخرة، والقادمة.
+   - جلسة مراجعة تفاعلية مع **مؤقت زمني دقيق** وتقييم ذاتي واحتفال لطيف بالإتقان.
+   - خوارزمية اقتراح فترات المراجعة المتباعدة (بعد 1، 3، 10، أو 21 يوماً حسب الإتقان) مع الاحتفاظ بكامل السجل التاريخي.
+
+5. **ميزة "العودة بعد الغياب" (Welcome Back After Absence):**
+   - استقبال أخوي دافئ بدون لوم أو إشعار بالذنب: *"حمدًا لله على رجوعك يا صاحبي ❤️ المهم إنك رجعت"*.
+   - عرض فوري لآخر موضع وقفت عنده وآخر حلقة مع الشيخ.
+   - خطة استئناف هادئة من 4 خطوات لاستعادة النشاط بدون ضغط.
+   - عدم اختلاق تكليفات وهمية أو تصفير أي إنجاز سابق.
+
+6. **الرفيق القرآني وزاد الروح:**
+   - **تأصيل شرعي موثق:** آيات قرآنية وأحاديث نبوية صحيحة مسندة إلى مصادرها (صحيح البخاري، مسلم، الترمذي، أبو داود). لا توليد ولا اختلاق لأحاديث مكذوبة نهائياً.
+   - **تشجيع مصري أخوي دافئ:** كلام واقعي بالعامية المصرية يشبه صديقاً مقرباً يسندك ويدعمك.
+   - **فقه ثواب التلاوة:** بيان حديث مضاعفة أجر الحرف بعشر حسنات دون ادعاء حساب الرصيد الغيبي أو ضمان القبول.
+
+7. **متابعة ورد التلاوة والقراءة (منفصلة تماماً عن الحفظ):**
+   - تسجيل جلسات القراءة اليومية، الدقائق، والآيات المتلوة لترطيب اللسان بالقرآن دون خلطها بالحفظ التسميعي.
+
+8. **خرائط المصحف الشريف والإحصائيات:**
+   - **خريطة الـ 114 سورة:** بطاقات تفاعلية بحالة كل سورة مع إمكانية التعليم السريع.
+   - **خريطة الـ 30 جزءاً:** مؤشرات إنجاز دقيقة لكل جزء.
+   - **رسوم بيانية تفاعلية باستخدام Recharts:** توزيع الأنشطة، كعكة حالات الآيات، ومعدل الدقائق الأسبوعي.
+
+9. **الأوسمة والإنجازات الهادئة:**
+   - تحفيز لطيف بدون مقارنة اجتماعية ضاغطة أو عقاب عند تفويت الأيام.
+
+10. **تطبيق ويب تقدمي PWA وتجربة موبايل متفوقة:**
+    - شريط سفلي متجاوب، دعم كامل لاتجاه اليمين إلى اليسار (RTL).
+    - إمكانية التثبيت على شاشات الهواتف كأنه تطبيق أصيل.
+    - تشغيل كامل حتى عند انقطاع الإنترنت أو العمل في وضع الزائر السريع.
+
+---
+
+## 🛠️ التقنيات المستخدمة (Tech Stack)
+
+- **Frontend:**
+  - Next.js (App Router, Turbopack, Server & Client Components)
+  - React 19 & TypeScript Strict Mode
+  - Tailwind CSS & Islamic Design System Tokens
+  - Lucide React Icons
+  - Recharts للرسوم البيانية
+  - Canvas Confetti للاحتفالات اللطيفة
+- **Backend & Database:**
+  - PostgreSQL Database
+  - Supabase Database & Supabase Authentication
+  - Row Level Security (RLS) وسياسات عزل بيانات كل مستخدم بدقة
+  - Migrations SQL & Seed Data Scripts
+- **Architecture:**
+  - Responsive Mobile-First Architecture
+  - Dark / Light / System Theme Modes
+  - PWA Manifest & Service Worker
+
+---
+
+## 📁 هيكلية المسارات (All Required Pages Implemented)
+
+| المسار | الوصف |
+| :--- | :--- |
+| `/login` | تسجيل الدخول بالبريد وكلمة المرور مع زر الدخول السريع كزائر |
+| `/register` | إنشاء حساب جديد والانتقال للتهيئة الأولى |
+| `/forgot-password` | استعادة كلمة المرور عبر البريد |
+| `/onboarding` | معالج تهيئة الرحلة: الاسم، المحفوظ السابق، الموضع الحالي، والتفضيلات |
+| `/dashboard` | اللوحة الرئيسية الشاملة: أين وقفت؟ وماذا حفظت؟ وماذا أراجع اليوم؟ |
+| `/quran` | خريطة المصحف التفاعلية (114 سورة و 30 جزءاً) |
+| `/memorization` | إدارة الحفظ والواجبات والتكليفات السابقة |
+| `/memorization/new` | إضافة واجب أو مقطع حفظ جديد مع محدد النطاق |
+| `/memorization/[id]` | تفاصيل الواجب وتحديث حالته وملاحظاته |
+| `/revision` | لوحة تحكم المراجعات المستحقة والمتأخرة وسجل التثبيت |
+| `/revision/session` | جلسة مراجعة نشطة مع مؤقت زمني وتحديد التقييم والموعد القادم |
+| `/lessons` | جدول زمني لجلسات وحلقات التسميع مع الشيخ |
+| `/lessons/new` | تسجيل جلسة جديدة في دقيقة واحدة مع مقاطع متعددة وتقييم الشيخ لكل مقطع |
+| `/lessons/[id]` | تفاصيل الجلسة وملاحظات الشيخ وتوجيهاته |
+| `/reading` | متتبع ورد القراءة والتلاوة المستقل |
+| `/statistics` | التحليلات والرسوم البيانية ومعدل الإنجاز |
+| `/achievements` | الأوسمة والإنجازات الهادئة المحفزة |
+| `/motivation` | زاد الروح: أحاديث نبوية صحيحة وتشجيع بالعامية المصرية |
+| `/notifications` | مركز الإشعارات والتذكيرات |
+| `/settings` | الإعدادات وتفضيلات التذكير وتصدير البيانات JSON / CSV |
+
+---
+
+## 🚀 التشغيل المحلي (Local Setup)
+
+### 1. المتطلبات:
+- Node.js v18 فما فوق (تم التطوير والاختبار بنجاح على Node.js v26).
+- npm أو pnpm.
+
+### 2. تثبيت الحزم:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd quran-app
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. تشغيل حزمة الاختبارات المؤتمتة الكاملة (20 اختباراً):
+```bash
+npm test
+```
+تشمل الاختبارات:
+- سلامة بيانات المصحف برواية حفص الـ 6236 آية كاملة (`tests/quranDataIntegrity.test.ts`).
+- محاكاة غياب 21 يوماً وحساب فترات المراجعة ومنع التكرار (`tests/functionalFlows.test.ts`).
+- عزل بيانات المستخدمين User A vs User B وسياسات الأمان RLS (`tests/securityRLS.test.ts`).
+- منطق الأعمال وحساب النطاقات المتداخلة والعابرة للسور (`tests/businessLogic.test.ts`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. تشغيل خادم التطوير:
+```bash
+npm run dev
+```
+افتح المتصفح على: `http://localhost:3000`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 5. فحص البناء النهائي للإنتاج:
+```bash
+npm run build
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📚 وثائق المشروع الإضافية
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [دليل النشر والتشغيل الشامل (DEPLOYMENT.md)](file:///c:/Users/Administrator/Desktop/Ali_Unfiltered_Nvidia_Video/Ali_Unfiltered_Nvidia_Video/quran-app/DEPLOYMENT.md)
+- [وثيقة الأمان وحماية البيانات وسياسات RLS (SECURITY.md)](file:///c:/Users/Administrator/Desktop/Ali_Unfiltered_Nvidia_Video/Ali_Unfiltered_Nvidia_Video/quran-app/SECURITY.md)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🗄️ إعداد قاعدة بيانات Supabase (Database Setup)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+إذا كنت ترغب بربط التطبيق بمشروع Supabase سحابي:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. أنشئ مشروعاً جديداً في [supabase.com](https://supabase.com).
+2. انسخ محتويات ملف الهجرة:
+   `supabase/migrations/20261124_schema.sql`
+   والصقه في نافذة **SQL Editor** في لوحة تحكم Supabase واضغط **Run**.
+3. انسخ محتويات ملف البيانات الأولية:
+   `supabase/seed.sql`
+   والصقه في **SQL Editor** واضغط **Run** لتعبئة الـ 114 سورة والأحاديث الصحيحة الموثقة.
+4. املأ بيانات الاعتماد في ملف `.env.local`:
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-public-key
+```
+
+*ملاحظة: يعمل التطبيق أيضاً بكامل طاقته وخواصه دون الحاجة لإعداد Supabase فوري عبر وضع الزائر المحلي والذاكرة الدائمة.*
+
+---
+
+## ☁️ النشر على Vercel (Deployment)
+
+1. ارفع المشروع إلى مستودع GitHub.
+2. توجه إلى لوحة تحكم Vercel واضغط **Add New Project** ثم استورد المستودع.
+3. حدد المجلد الفرعي `quran-app` كـ **Root Directory**.
+4. أضف متغيرات البيئة التالية في قسم Environment Variables:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `NEXT_PUBLIC_APP_NAME="رحلتي مع القرآن"`
+5. اضغط **Deploy**.
+
+---
+
+## 🧪 نتائج الاختبارات وضمان الجودة (QA Report)
+
+تم إنشاء واجتياز اختبارات وحدة شاملة تغطي:
+- ✅ صحة البنية الكنسية للمصحف الشريف (114 سورة، 30 جزءاً، 6236 آية).
+- ✅ التحقق من سلامة حدود السور والآيات وحالات الإدخال الخاطئ.
+- ✅ حساب المقاطع العابرة للسور (Cross-Surah Ranges) بدقة متناهية.
+- ✅ منع احتساب المقاطع المتداخلة مرتين وضمان قياس الآيات الفريدة.
+- ✅ دقة نسب الإنجاز والمؤشرات.
+- ✅ حساب فترات المراجعة المتباعدة حسب تقييم الإتقان.
+- ✅ خوارزمية كشف الغياب بعد 6 أيام وتفعيل خطة العودة الهادئة.
+- ✅ الصياغة اللغوية العربية الدقيقة لأسماء ومقاطع السور.
+- ✅ بناء خالي تماماً من أخطاء TypeScript وتوافق كامل مع Next.js App Router و Turbopack.
