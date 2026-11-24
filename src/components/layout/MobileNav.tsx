@@ -17,7 +17,8 @@ import {
   HeartHandshake,
   Bell,
   Settings,
-  LogOut
+  LogOut,
+  Mic
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useQuranApp } from '@/context/QuranAppContext';
@@ -32,12 +33,14 @@ export const MobileNav: React.FC = () => {
 
   const primaryItems = [
     { href: '/dashboard', label: 'الرئيسية', icon: LayoutDashboard },
+    { href: '/student/recitation', label: 'التسميع الذكي', icon: Mic },
     { href: '/quran', label: 'المصحف', icon: BookOpen },
     { href: '/memorization', label: 'الحفظ', icon: CheckCircle2 },
     { href: '/revision', label: 'المراجعة', icon: RotateCcw },
   ];
 
   const moreItems = [
+    { href: '/student/recitation', label: 'التسميع الذكي (مساعد الحفظ)', icon: Mic },
     { href: '/lessons', label: 'جلسات الشيخ', icon: GraduationCap },
     { href: '/reading', label: 'ورد التلاوة', icon: Bookmark },
     { href: '/statistics', label: 'الإحصائيات', icon: BarChart3 },

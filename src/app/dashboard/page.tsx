@@ -24,7 +24,8 @@ import {
   Calendar,
   AlertCircle,
   Clock,
-  HeartHandshake
+  HeartHandshake,
+  Mic
 } from 'lucide-react';
 
 interface CategorizedTask {
@@ -172,7 +173,19 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick Action Buttons Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
+          <Link
+            href="/student/recitation"
+            className="p-3.5 rounded-2xl bg-gradient-to-b from-emerald-500/10 to-transparent dark:from-emerald-950/40 border border-emerald-500/40 hover:border-emerald-500 hover:shadow-xs transition-all flex flex-col items-center text-center gap-2 group ring-1 ring-emerald-500/20"
+          >
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+              <Mic className="w-5 h-5 animate-pulse" />
+            </div>
+            <span className="text-xs font-bold text-emerald-700 dark:text-emerald-300">
+              التسميع الذكي
+            </span>
+          </Link>
+
           <Link
             href="/memorization/new"
             className="p-3.5 rounded-2xl bg-white dark:bg-[#11251E] border border-[#E6E4DC] dark:border-[#1F3B32] hover:border-[#145A45] hover:shadow-xs transition-all flex flex-col items-center text-center gap-2 group"

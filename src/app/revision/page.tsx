@@ -6,7 +6,7 @@ import { AppShell } from '@/components/layout/AppShell';
 import { useQuranApp } from '@/context/QuranAppContext';
 import { EvaluationBadge } from '@/components/ui/EvaluationBadge';
 import { formatQuranRange } from '@/data/quranData';
-import { RotateCcw, Play, Calendar, AlertCircle, CheckCircle2, Clock, ArrowRight } from 'lucide-react';
+import { RotateCcw, Play, Calendar, AlertCircle, CheckCircle2, Clock, ArrowRight, Mic } from 'lucide-react';
 
 export default function RevisionPage() {
   const { revisionSessions, revisionDueToday, overdueRevision } = useQuranApp();
@@ -26,13 +26,22 @@ export default function RevisionPage() {
             </p>
           </div>
 
-          <Link
-            href="/revision/session"
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#145A45] hover:bg-[#1b6f57] text-white text-xs font-bold shadow-md transition-all active:scale-95"
-          >
-            <Play className="w-4 h-4 fill-current" />
-            <span>بدء جلسة مراجعة الآن (مع المؤقت)</span>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/student/recitation"
+              className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md transition-all active:scale-95"
+            >
+              <Mic className="w-4 h-4" />
+              <span>التسميع الذكي</span>
+            </Link>
+            <Link
+              href="/revision/session"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#145A45] hover:bg-[#1b6f57] text-white text-xs font-bold shadow-md transition-all active:scale-95"
+            >
+              <Play className="w-4 h-4 fill-current" />
+              <span>بدء جلسة مراجعة الآن (مع المؤقت)</span>
+            </Link>
+          </div>
         </div>
 
         {/* Status Highlights */}

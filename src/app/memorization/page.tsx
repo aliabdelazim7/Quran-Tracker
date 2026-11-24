@@ -6,7 +6,7 @@ import { AppShell } from '@/components/layout/AppShell';
 import { useQuranApp } from '@/context/QuranAppContext';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import { formatQuranRange, getSurah } from '@/data/quranData';
-import { Plus, CheckCircle2, AlertCircle, Filter, BookOpen, Clock, Trash2, ArrowUpRight } from 'lucide-react';
+import { Plus, CheckCircle2, AlertCircle, Filter, BookOpen, Clock, Trash2, ArrowUpRight, Mic } from 'lucide-react';
 import { MemorizationStatus } from '@/types/database';
 
 export default function MemorizationPage() {
@@ -30,13 +30,22 @@ export default function MemorizationPage() {
             </p>
           </div>
 
-          <Link
-            href="/memorization/new"
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#145A45] hover:bg-[#1b6f57] text-white text-xs font-bold shadow-md transition-all active:scale-95"
-          >
-            <Plus className="w-4 h-4" />
-            <span>إضافة واجب / حفظ جديد</span>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/student/recitation"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md transition-all active:scale-95"
+            >
+              <Mic className="w-4 h-4" />
+              <span>التسميع الذكي</span>
+            </Link>
+            <Link
+              href="/memorization/new"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#145A45] hover:bg-[#1b6f57] text-white text-xs font-bold shadow-md transition-all active:scale-95"
+            >
+              <Plus className="w-4 h-4" />
+              <span>إضافة واجب / حفظ جديد</span>
+            </Link>
+          </div>
         </div>
 
         {/* Quick Stats Grid */}
@@ -166,6 +175,14 @@ export default function MemorizationPage() {
                     </div>
 
                     <div className="flex items-center gap-2">
+                      <Link
+                        href={`/student/recitation?surah=${item.start_surah}&from=${item.start_ayah}&to=${item.end_ayah}&assignmentId=${item.id}`}
+                        className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold transition-colors text-xs"
+                        title="تسميع ذكي مع المساعد"
+                      >
+                        <Mic className="w-3.5 h-3.5" />
+                        <span>تسميع ذكي</span>
+                      </Link>
                       <Link
                         href={`/memorization/${item.id}`}
                         className="p-1.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-500 hover:text-stone-900 transition-colors"

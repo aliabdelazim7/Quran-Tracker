@@ -16,13 +16,15 @@ import {
   Bell,
   Settings,
   LogOut,
-  Sparkles
+  Sparkles,
+  Mic
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useQuranApp } from '@/context/QuranAppContext';
 
 export const navItems = [
   { href: '/student/dashboard', label: 'الرئيسية', icon: LayoutDashboard },
+  { href: '/student/recitation', label: 'التسميع الذكي', icon: Mic },
   { href: '/student/teacher', label: 'الشيخ المتابع والحلقة', icon: GraduationCap },
   { href: '/student/quran', label: 'خريطة القرآن', icon: BookOpen },
   { href: '/student/memorization', label: 'الحفظ والتسميع', icon: CheckCircle2 },
