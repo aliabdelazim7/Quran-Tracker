@@ -1,20 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;800&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   color-scheme: light;
   --primary: #145A45;
   --primary-hover: #1b6f57;
   --primary-subtle: #e8f2ee;
-  --secondary: #A6B89D;
+  --secondary: #5C7256;
   --accent: #C7A75B;
   --accent-subtle: #fbf6ec;
   --background: #F8F7F2;
   --surface: #FFFFFF;
   --card: #FFFFFF;
-  --text-main: #252B27;
-  --text-muted: #64746D;
-  --border-color: #E6E4DC;
+  --text-main: #18201C;
+  --text-muted: #506158;
+  --border-color: #E2DFD6;
   --warning: #D97706;
   --error: #DC2626;
   --success: #16A34A;
@@ -22,21 +24,21 @@
 
 .dark {
   color-scheme: dark;
-  --primary: #1E745A;
-  --primary-hover: #268C6D;
+  --primary: #229470;
+  --primary-hover: #29AC83;
   --primary-subtle: #123026;
-  --secondary: #8B9E82;
-  --accent: #D4B66E;
+  --secondary: #A8BDA0;
+  --accent: #E0C37B;
   --accent-subtle: #2A2415;
-  --background: #0B1914;
-  --surface: #11251E;
-  --card: #142D25;
-  --text-main: #EDF3EF;
-  --text-muted: #95A59E;
-  --border-color: #1F3B32;
-  --warning: #F59E0B;
-  --error: #EF4444;
-  --success: #22C55E;
+  --background: #0A1612;
+  --surface: #122820;
+  --card: #152F26;
+  --text-main: #F4F7F5;
+  --text-muted: #B8C7C0;
+  --border-color: #24483B;
+  --warning: #FBBF24;
+  --error: #F87171;
+  --success: #34D399;
 }
 
 * {

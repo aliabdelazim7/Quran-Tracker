@@ -253,7 +253,7 @@ export default function DashboardPage() {
                 <BookOpen className="w-5 h-5 text-[#145A45] dark:text-[#C7A75B]" />
                 <span>إجمالي التقدم في القرآن الكريم</span>
               </h2>
-              <p className="text-xs text-stone-500">
+              <p className="text-xs text-stone-600 dark:text-stone-300">
                 حساب دقيق لعدد الآيات والسور والأجزاء وفق مصحف حفص عن عاصم (6236 آية).
               </p>
             </div>
@@ -408,7 +408,7 @@ export default function DashboardPage() {
                     )}
                   </h3>
                   {currentAssignment.notes && (
-                    <p className="text-xs text-stone-500 italic">
+                    <p className="text-xs text-stone-600 dark:text-stone-300 italic">
                       &ldquo;{currentAssignment.notes}&rdquo;
                     </p>
                   )}
@@ -416,22 +416,22 @@ export default function DashboardPage() {
 
                 {/* Quick Status Updater */}
                 <div className="flex flex-wrap items-center gap-2 pt-1">
-                  <span className="text-xs text-stone-500">تغيير الحالة:</span>
+                  <span className="text-xs text-stone-600 dark:text-stone-300 font-medium">تغيير الحالة:</span>
                   <button
                     onClick={() => updateAssignmentStatus(currentAssignment.id, 'ready_for_recitation')}
-                    className="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-semibold"
+                    className="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-950/40 dark:text-blue-300 dark:hover:bg-blue-900/60 text-xs font-semibold"
                   >
                     جاهز للتسميع 📢
                   </button>
                   <button
                     onClick={() => updateAssignmentStatus(currentAssignment.id, 'recited')}
-                    className="px-2.5 py-1 rounded-lg bg-teal-50 text-teal-700 hover:bg-teal-100 text-xs font-semibold"
+                    className="px-2.5 py-1 rounded-lg bg-teal-50 text-teal-700 hover:bg-teal-100 dark:bg-teal-950/40 dark:text-teal-300 dark:hover:bg-teal-900/60 text-xs font-semibold"
                   >
                     تم التسميع مع الشيخ ✅
                   </button>
                   <button
                     onClick={() => updateAssignmentStatus(currentAssignment.id, 'mastered')}
-                    className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 hover:bg-emerald-100 text-xs font-semibold"
+                    className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:text-emerald-300 dark:hover:bg-emerald-900/60 text-xs font-semibold"
                   >
                     تم الإتقان ⭐
                   </button>
@@ -446,7 +446,7 @@ export default function DashboardPage() {
                   </Link>
                   <Link
                     href="/memorization/new"
-                    className="text-xs text-stone-500 hover:text-stone-800 font-medium"
+                    className="text-xs text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 font-medium"
                   >
                     + إضافة واجب جديد
                   </Link>
@@ -454,7 +454,7 @@ export default function DashboardPage() {
               </div>
             ) : (
               <div className="p-8 text-center rounded-2xl bg-[#F8F7F2] dark:bg-[#0B1914] space-y-3">
-                <p className="text-xs text-stone-500">
+                <p className="text-xs text-stone-600 dark:text-stone-300">
                   لا يوجد واجب حفظ جديد مسجل حالياً. هل كلّفك الشيخ بمقطع جديد؟
                 </p>
                 <Link
@@ -479,7 +479,7 @@ export default function DashboardPage() {
                   {categorizedTasks.length}
                 </span>
               </div>
-              <span className="text-[11px] text-stone-400">
+              <span className="text-[11px] text-stone-500 dark:text-stone-400">
                 مقسمة حسب الأولوية والتكليف الشرعي
               </span>
             </div>
@@ -511,7 +511,7 @@ export default function DashboardPage() {
                   className={`px-3 py-1 rounded-full whitespace-nowrap text-xs transition-colors font-medium ${
                     taskCategoryFilter === tab.id
                       ? 'bg-[#145A45] text-white shadow-xs'
-                      : 'bg-stone-50 dark:bg-[#0B1914] text-stone-600 dark:text-stone-300 hover:bg-stone-100'
+                      : 'bg-stone-50 dark:bg-[#0B1914] text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-[#142D25]'
                   }`}
                 >
                   {tab.label}
@@ -527,7 +527,7 @@ export default function DashboardPage() {
                     ? 'ما شاء الله! لا توجد عليك أي واجبات معلقة أو مقاطع متأخرة.'
                     : 'لا توجد عناصر في هذا التصنيف حالياً.'}
                 </p>
-                <p className="text-[11px] text-stone-400">
+                <p className="text-[11px] text-stone-500 dark:text-stone-400">
                   كل ما عليك الآن هو تثبيت ما حفظته أو الاستعداد للحفظ الجديد.
                 </p>
               </div>
@@ -556,7 +556,7 @@ export default function DashboardPage() {
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-2 text-[11px] text-stone-500 flex-wrap">
+                      <div className="flex items-center gap-2 text-[11px] text-stone-600 dark:text-stone-300 flex-wrap">
                         <span className="text-[#145A45] dark:text-[#C7A75B] font-medium">
                           {task.typeLabel}
                         </span>

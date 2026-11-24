@@ -140,13 +140,13 @@ export default function NewLessonPage() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Section 1: Lesson Details */}
-          <div className="p-6 rounded-3xl bg-white dark:bg-[#11251E] border border-[#E6E4DC] dark:border-[#1F3B32] shadow-xs space-y-4">
-            <h2 className="text-sm font-bold text-stone-800 dark:text-stone-200">
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#152F26] border border-[#E6E4DC] dark:border-[#24483B] shadow-xs space-y-4">
+            <h2 className="text-sm font-bold text-stone-900 dark:text-stone-100">
               1. بيانات الجلسة الأساسية
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label className="text-xs font-semibold text-stone-600 block mb-1">
+                <label className="text-xs font-semibold text-stone-700 dark:text-stone-200 block mb-1">
                   تاريخ الجلسة
                 </label>
                 <input
@@ -154,12 +154,12 @@ export default function NewLessonPage() {
                   required
                   value={lessonDate}
                   onChange={(e) => setLessonDate(e.target.value)}
-                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#1F3B32] bg-[#F8F7F2] dark:bg-[#0B1914] px-3 py-2 text-xs"
+                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] text-stone-900 dark:text-stone-100 px-3.5 py-2.5 text-xs font-medium"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-stone-600 block mb-1">
+                <label className="text-xs font-semibold text-stone-700 dark:text-stone-200 block mb-1">
                   اسم الشيخ أو الحلقة
                 </label>
                 <input
@@ -168,12 +168,12 @@ export default function NewLessonPage() {
                   value={sheikhName}
                   onChange={(e) => setSheikhName(e.target.value)}
                   placeholder="الشيخ فلان"
-                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#1F3B32] bg-[#F8F7F2] dark:bg-[#0B1914] px-3 py-2 text-xs"
+                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] text-stone-900 dark:text-stone-100 px-3.5 py-2.5 text-xs font-medium"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-stone-600 block mb-1">
+                <label className="text-xs font-semibold text-stone-700 dark:text-stone-200 block mb-1">
                   مدة الجلسة (بالدقائق)
                 </label>
                 <input
@@ -181,20 +181,20 @@ export default function NewLessonPage() {
                   min={5}
                   value={durationMinutes}
                   onChange={(e) => setDurationMinutes(parseInt(e.target.value || '30', 10))}
-                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#1F3B32] bg-[#F8F7F2] dark:bg-[#0B1914] px-3 py-2 text-xs"
+                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] text-stone-900 dark:text-stone-100 px-3.5 py-2.5 text-xs font-medium"
                 />
               </div>
             </div>
           </div>
 
           {/* Section 2: Recited Passages (Multi-passage) */}
-          <div className="p-6 rounded-3xl bg-white dark:bg-[#11251E] border border-[#E6E4DC] dark:border-[#1F3B32] shadow-xs space-y-5">
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#152F26] border border-[#E6E4DC] dark:border-[#24483B] shadow-xs space-y-5">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-sm font-bold text-stone-800 dark:text-stone-200">
+                <h2 className="text-sm font-bold text-stone-900 dark:text-stone-100">
                   2. المقاطع التي تم تسميعها وتقييماتها
                 </h2>
-                <p className="text-[11px] text-stone-500">
+                <p className="text-[11px] text-stone-600 dark:text-stone-300">
                   يمكنك تسجيل أكثر من مقطع (حفظ جديد، ماضٍ قريب، مراجعة) مع تقييم الشيخ المستقل لكل مقطع.
                 </p>
               </div>
@@ -213,7 +213,7 @@ export default function NewLessonPage() {
               {passages.map((passage, pIndex) => (
                 <div
                   key={pIndex}
-                  className="p-4 rounded-2xl bg-[#F8F7F2] dark:bg-[#0B1914] border border-[#E6E4DC] dark:border-[#1F3B32] space-y-3"
+                  className="p-4 rounded-2xl bg-[#F8F7F2] dark:bg-[#0E201A] border border-[#E6E4DC] dark:border-[#24483B] space-y-3"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-[#145A45] dark:text-[#C7A75B]">
@@ -302,24 +302,24 @@ export default function NewLessonPage() {
           </div>
 
           {/* Section 3: Next Assignment from Sheikh */}
-          <div className="p-6 rounded-3xl bg-white dark:bg-[#11251E] border border-[#E6E4DC] dark:border-[#1F3B32] shadow-xs space-y-4">
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#152F26] border border-[#E6E4DC] dark:border-[#24483B] shadow-xs space-y-4">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-bold text-stone-800 dark:text-stone-200 flex items-center gap-2">
+              <label className="text-sm font-bold text-stone-900 dark:text-stone-100 flex items-center gap-2">
                 <span>3. التكليف والواجب للقاء القادم</span>
               </label>
               <input
                 type="checkbox"
                 checked={hasNextAssignment}
                 onChange={(e) => setHasNextAssignment(e.target.checked)}
-                className="rounded border-stone-300 text-[#145A45]"
+                className="w-4 h-4 rounded border-stone-300 dark:border-stone-600 text-[#145A45] focus:ring-[#145A45] cursor-pointer"
               />
             </div>
 
             {hasNextAssignment && (
-              <div className="p-4 rounded-2xl bg-[#F8F7F2] dark:bg-[#0B1914] border border-[#E6E4DC] dark:border-[#1F3B32] space-y-3">
+              <div className="p-4 rounded-2xl bg-[#F8F7F2] dark:bg-[#0E201A] border border-[#E6E4DC] dark:border-[#24483B] space-y-3">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
-                    <label className="text-xs text-stone-500 block mb-1">السورة</label>
+                    <label className="text-xs font-semibold text-stone-700 dark:text-stone-200 block mb-1">السورة</label>
                     <select
                       value={nextSurah}
                       onChange={(e) => {
@@ -328,7 +328,7 @@ export default function NewLessonPage() {
                         const s = SURAHS.find((item) => item.number === sNum);
                         setNextEndAyah(s?.ayahCount || 25);
                       }}
-                      className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 font-medium p-2 text-xs"
+                      className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#24483B] bg-white dark:bg-[#122820] text-stone-900 dark:text-stone-100 font-medium p-2 text-xs"
                     >
                       {SURAHS.map((s) => (
                         <option
@@ -343,24 +343,24 @@ export default function NewLessonPage() {
                   </div>
 
                   <div>
-                    <label className="text-xs text-stone-500 block mb-1">من الآية</label>
+                    <label className="text-xs font-semibold text-stone-700 dark:text-stone-200 block mb-1">من الآية</label>
                     <input
                       type="number"
                       min={1}
                       value={nextStartAyah}
                       onChange={(e) => setNextStartAyah(parseInt(e.target.value || '1', 10))}
-                      className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] p-2 text-xs"
+                      className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#24483B] bg-white dark:bg-[#122820] text-stone-900 dark:text-stone-100 font-medium p-2 text-xs"
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs text-stone-500 block mb-1">إلى الآية</label>
+                    <label className="text-xs font-semibold text-stone-700 dark:text-stone-200 block mb-1">إلى الآية</label>
                     <input
                       type="number"
                       min={1}
                       value={nextEndAyah}
                       onChange={(e) => setNextEndAyah(parseInt(e.target.value || '1', 10))}
-                      className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] p-2 text-xs"
+                      className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#24483B] bg-white dark:bg-[#122820] text-stone-900 dark:text-stone-100 font-medium p-2 text-xs"
                     />
                   </div>
                 </div>
@@ -370,15 +370,15 @@ export default function NewLessonPage() {
                   value={nextNotes}
                   onChange={(e) => setNextNotes(e.target.value)}
                   placeholder="ملاحظات وتوجيهات الشيخ الخاصة بالواجب القادم..."
-                  className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] p-2 text-xs"
+                  className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#24483B] bg-white dark:bg-[#122820] text-stone-900 dark:text-stone-100 font-medium p-2.5 text-xs"
                 />
               </div>
             )}
           </div>
 
           {/* Section 4: General Lesson Notes */}
-          <div className="p-6 rounded-3xl bg-white dark:bg-[#11251E] border border-[#E6E4DC] dark:border-[#1F3B32] shadow-xs space-y-2">
-            <label className="text-sm font-bold text-stone-800 dark:text-stone-200 block">
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#152F26] border border-[#E6E4DC] dark:border-[#24483B] shadow-xs space-y-2">
+            <label className="text-sm font-bold text-stone-900 dark:text-stone-100 block">
               4. ملاحظات عامة حول الجلسة
             </label>
             <textarea
@@ -386,7 +386,7 @@ export default function NewLessonPage() {
               value={overallNotes}
               onChange={(e) => setOverallNotes(e.target.value)}
               placeholder="نصائح عامة من الشيخ، تنبيهات على مخارج الحروف، تشجيع..."
-              className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#1F3B32] bg-[#F8F7F2] dark:bg-[#0B1914] p-3 text-xs"
+              className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] text-stone-900 dark:text-stone-100 p-3 text-xs font-medium"
             />
           </div>
 
