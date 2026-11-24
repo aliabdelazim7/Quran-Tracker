@@ -1,0 +1,15 @@
+{
+  "drillDate": "2026-11-24T17:03:22.418Z",
+  "status": "PASSED",
+  "stagingRef": "dbqkorvlfvbxxiscomrg",
+  "restorationDurationSeconds": 2,
+  "rtoMeasuredSeconds": 2,
+  "rpoCalculatedHours": 24,
+  "validation": {
+    "tablesRestored": 17,
+    "surahsCount": 114,
+    "ayahsCount": 6236,
+    "messagesCount": 8,
+    "rlsTablesCount": 17
+  }
+}

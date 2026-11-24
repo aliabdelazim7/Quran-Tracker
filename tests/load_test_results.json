@@ -1,0 +1,58 @@
+[
+  {
+    "virtualUsers": 5,
+    "totalRequests": 75,
+    "successfulRequests": 75,
+    "failedRequests": 0,
+    "errorRatePercent": 0,
+    "throughputRps": 7.35,
+    "minMs": 48.2,
+    "p50Ms": 498.89,
+    "p90Ms": 891.91,
+    "p95Ms": 1763.57,
+    "p99Ms": 2153.62,
+    "maxMs": 2153.62
+  },
+  {
+    "virtualUsers": 10,
+    "totalRequests": 150,
+    "successfulRequests": 150,
+    "failedRequests": 0,
+    "errorRatePercent": 0,
+    "throughputRps": 9.69,
+    "minMs": 62.4,
+    "p50Ms": 1008.78,
+    "p90Ms": 1145.81,
+    "p95Ms": 1190.28,
+    "p99Ms": 1309.21,
+    "maxMs": 1356.3
+  },
+  {
+    "virtualUsers": 25,
+    "totalRequests": 300,
+    "successfulRequests": 300,
+    "failedRequests": 0,
+    "errorRatePercent": 0,
+    "throughputRps": 9.31,
+    "minMs": 95.1,
+    "p50Ms": 2550.7,
+    "p90Ms": 3069.55,
+    "p95Ms": 3369.26,
+    "p99Ms": 3593.15,
+    "maxMs": 3643.56
+  },
+  {
+    "virtualUsers": 50,
+    "totalRequests": 500,
+    "successfulRequests": 500,
+    "failedRequests": 0,
+    "errorRatePercent": 0,
+    "throughputRps": 10.61,
+    "minMs": 110.3,
+    "p50Ms": 4628.75,
+    "p90Ms": 5348.85,
+    "p95Ms": 5744.59,
+    "p99Ms": 5892.38,
+    "maxMs": 5970.39
+  }
+]
