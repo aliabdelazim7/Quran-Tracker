@@ -13,6 +13,7 @@ import {
   toggleReportSharingPermission,
   deleteRecitationSession,
 } from '../services/recitation.service';
+import { translateRecitationError } from '../lib/error-translator';
 import { SURAHS } from '@/data/quranData';
 import {
   Sparkles,
@@ -40,6 +41,7 @@ interface Props {
 export const RecitationDashboard: React.FC<Props> = ({ initialAssignment }) => {
   const [activeTab, setActiveTab] = useState<'new_session' | 'history' | 'privacy'>('new_session');
   const [showPermissionDialog, setShowPermissionDialog] = useState(false);
+  const [setupError, setSetupError] = useState<string | null>(null);
   const [pendingStartParams, setPendingStartParams] = useState<{
     mode: RecitationMode;
     passage?: DeclaredPassageConfig;
@@ -107,6 +109,7 @@ export const RecitationDashboard: React.FC<Props> = ({ initialAssignment }) => {
   const handleConfirmPermission = async () => {
     setShowPermissionDialog(false);
     if (!pendingStartParams) return;
+    setSetupError(null);
 
     try {
       // 1. Prepare microphone synchronously on user tap
@@ -115,10 +118,12 @@ export const RecitationDashboard: React.FC<Props> = ({ initialAssignment }) => {
       // 2. Initialize engine if not ready
       const inst = await initEngine();
 
-      // 3. Start recitation session
-      await startSession(pendingStartParams.mode, pendingStartParams.passage, micHandle);
-    } catch (err) {
+      // 3. Start recitation session passing engine directly to avoid React closure lag
+      await startSession(pendingStartParams.mode, pendingStartParams.passage, micHandle, inst);
+    } catch (err: any) {
       console.error('Error starting recitation flow:', err);
+      const translated = translateRecitationError(err);
+      setSetupError(translated || err?.message || 'تعذر تشغيل الميكروفون أو بدء جلسة التسميع. يرجى مراجعة الصلاحيات.');
     }
   };
 
@@ -216,6 +221,30 @@ export const RecitationDashboard: React.FC<Props> = ({ initialAssignment }) => {
       ) : (
         /* Setup and Dashboard Tabs */
         <div className="space-y-6">
+          {/* Setup or Session Error Alert */}
+          {(setupError || errorMessage) && (
+            <div className="bg-rose-950/60 border border-rose-800/80 rounded-2xl p-4 text-xs text-rose-200 flex items-start justify-between gap-3 shadow-lg">
+              <div className="flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+                <div>
+                  <strong className="block font-bold text-rose-100 mb-1">تنبيه أثناء بدء جلسة التسميع</strong>
+                  <p>{setupError || errorMessage}</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setSetupError(null);
+                  cancelSession();
+                }}
+                className="text-rose-400 hover:text-rose-200 transition p-1"
+                title="إغلاق التنبيه"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
           {/* Tabs */}
           <div className="flex border-b border-slate-800">
             <button

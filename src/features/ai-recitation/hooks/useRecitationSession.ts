@@ -11,10 +11,16 @@ import { TilawaEngineHandle, PreparedMicHandle, ActiveMicrophoneHandle, ActiveSe
 import { mapPositionEvent, mapCheckerEvent, RawPositionEvent, RawCheckerEvent } from '../lib/event-mapper';
 
 export function useRecitationSession(engine: TilawaEngineHandle | null) {
+  const engineRef = useRef<TilawaEngineHandle | null>(engine);
   const [status, setStatus] = useState<RecitationStatus>('idle');
   const [mode, setMode] = useState<RecitationMode>('memorization');
   const [passageConfig, setPassageConfig] = useState<DeclaredPassageConfig | null>(null);
   const [currentPosition, setCurrentPosition] = useState<RecitationPosition | null>(null);
+
+  // Sync ref with prop changes
+  useEffect(() => {
+    engineRef.current = engine;
+  }, [engine]);
 
   // Findings categorised by lifecycle
   const [confirmedFindings, setConfirmedFindings] = useState<RecitationFinding[]>([]);
@@ -60,10 +66,13 @@ export function useRecitationSession(engine: TilawaEngineHandle | null) {
     async (
       selectedMode: RecitationMode,
       passage?: DeclaredPassageConfig,
-      preparedMic?: PreparedMicHandle | null
+      preparedMic?: PreparedMicHandle | null,
+      passedEngine?: TilawaEngineHandle | null
     ) => {
-      if (!engine) {
-        setErrorMessage('محرك التسميع الذكي غير مهيأ بعد.');
+      const activeEngine = passedEngine || engineRef.current || engine;
+      if (!activeEngine) {
+        setErrorMessage('محرك التسميع الذكي غير مهيأ بعد. يرجى المحاولة مرة أخرى.');
+        setStatus('error');
         return;
       }
 
@@ -83,7 +92,7 @@ export function useRecitationSession(engine: TilawaEngineHandle | null) {
         // 1. Create Tilawa session
         let session: ActiveSessionHandle;
         if (selectedMode === 'memorization' && passage) {
-          session = engine.startMemorization(
+          session = activeEngine.startMemorization(
             {
               surah: passage.surah,
               fromAyah: passage.fromAyah,
@@ -94,7 +103,7 @@ export function useRecitationSession(engine: TilawaEngineHandle | null) {
             }
           );
         } else {
-          session = engine.startFreeRecitation({
+          session = activeEngine.startFreeRecitation({
             confirm: { after: 'next-word' },
           });
         }
@@ -144,8 +153,17 @@ export function useRecitationSession(engine: TilawaEngineHandle | null) {
         unsubscribeEventsRef.current = unsub;
 
         // 3. Connect microphone
+        // Resume AudioContext if browser suspended it during async setup
+        if (preparedMic?.context && preparedMic.context.state === 'suspended') {
+          try {
+            await preparedMic.context.resume();
+          } catch (e) {
+            console.warn('Could not resume suspended AudioContext:', e);
+          }
+        }
+
         setStatus('requesting_mic');
-        const mic = await engine.listen(session, {
+        const mic = await activeEngine.listen(session, {
           prepared: preparedMic || undefined,
           onLevel: (db: number) => {
             setAudioLevel(db);

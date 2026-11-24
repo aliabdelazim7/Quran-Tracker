@@ -85,3 +85,29 @@ export function translateTrackerState(state: string): { label: string; descripti
       };
   }
 }
+
+/**
+ * Translates engine and browser microphone/runtime errors to clear Arabic guidance.
+ */
+export function translateRecitationError(err: any): string {
+  if (!err) return 'حدث خطأ غير متوقع أثناء إعداد جلسة التسميع.';
+  const message = typeof err === 'string' ? err : err?.message || String(err);
+  const name = err?.name || '';
+
+  if (name === 'NotAllowedError' || name === 'PermissionDeniedError' || message.includes('denied') || message.includes('Permission')) {
+    return 'تم رفض إذن الوصول إلى الميكروفون. يرجى السماح بالوصول للميكروفون من شريط المتصفح ثم إعادة المحاولة.';
+  }
+  if (name === 'NotFoundError' || name === 'DevicesNotFoundError' || message.includes('unavailable')) {
+    return 'لم يتم العثور على ميكروفون متصل بالجهاز. يرجى التحقق من توصيل الميكروفون وإعادة المحاولة.';
+  }
+  if (name === 'SecurityError' || message.includes('insecure-context')) {
+    return 'تشغيل التسميع الصوتي يتطلب بيئة آمنة (HTTPS أو localhost).';
+  }
+  if (message.includes('No onnxruntime-web provider') || message.includes('WASM') || message.includes('wasm')) {
+    return 'تعذر تشغيل معالج الذكاء الاصطناعي على متصفحك. يرجى التأكد من دعم WebAssembly أو تحديث المتصفح.';
+  }
+  if (message.includes('network') || message.includes('fetch') || message.includes('Failed to fetch')) {
+    return 'فشل تنزيل ملفات النموذج الذكي. يرجى التحقق من اتصالك بالإنترنت وإعادة المحاولة.';
+  }
+  return message;
+}

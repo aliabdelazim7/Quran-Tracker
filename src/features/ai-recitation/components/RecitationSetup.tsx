@@ -109,7 +109,7 @@ export const RecitationSetup: React.FC<Props> = ({ onStart, isLoading }) => {
               className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-sans"
             >
               {SURAHS.map((s) => (
-                <option key={s.number} value={s.number}>
+                <option key={s.number} value={s.number} className="bg-slate-900 text-slate-100 font-sans py-2">
                   {s.number}. سورة {s.nameArabic} ({s.ayahCount} آية) - {s.revelationType}
                 </option>
               ))}

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import {
   getOrInitTilawa,
   disposeTilawa,
@@ -11,6 +11,7 @@ import { checkBrowserCapabilities, BrowserSupportResult } from '../lib/recitatio
 
 export function useTilawa() {
   const [engine, setEngine] = useState<TilawaEngineHandle | null>(null);
+  const engineRef = useRef<TilawaEngineHandle | null>(null);
   const [downloadState, setDownloadState] = useState<ModelDownloadState>({
     stage: 'idle',
     fraction: 0,
@@ -26,6 +27,11 @@ export function useTilawa() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [preparedMic, setPreparedMic] = useState<PreparedMicHandle | null>(null);
+
+  // Sync ref
+  useEffect(() => {
+    engineRef.current = engine;
+  }, [engine]);
 
   // Check browser support on mount
   useEffect(() => {
@@ -51,7 +57,8 @@ export function useTilawa() {
   /**
    * Initializes the Tilawa engine and downloads/caches required model files.
    */
-  const initEngine = useCallback(async () => {
+  const initEngine = useCallback(async (): Promise<TilawaEngineHandle> => {
+    if (engineRef.current) return engineRef.current;
     if (engine) return engine;
 
     setIsLoading(true);
@@ -59,6 +66,7 @@ export function useTilawa() {
       const inst = await getOrInitTilawa((p) => {
         setDownloadState(p);
       });
+      engineRef.current = inst;
       setEngine(inst);
       return inst;
     } catch (err: any) {

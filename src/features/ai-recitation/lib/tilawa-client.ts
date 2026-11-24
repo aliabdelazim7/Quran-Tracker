@@ -94,18 +94,40 @@ export async function getOrInitTilawa(
 
     const { createTilawa } = await import('@tilawa/core/web');
 
-    const engine = await createTilawa({
-      tier: 'auto',
-      onProgress: (p) => {
-        onProgress?.({
-          stage: p.stage as any,
-          fraction: p.fraction,
-          loaded: p.loaded,
-          total: p.total,
-          fromCache: p.fromCache,
-        });
-      },
-    });
+    // Configure wasmPaths to point to our local static directory with CDN fallback
+    const wasmDir = typeof window !== 'undefined' && window.location ? '/ort/' : 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.30.0/dist/';
+
+    let engine: any;
+    try {
+      engine = await createTilawa({
+        tier: 'auto',
+        wasmPaths: wasmDir,
+        onProgress: (p) => {
+          onProgress?.({
+            stage: p.stage as any,
+            fraction: p.fraction,
+            loaded: p.loaded,
+            total: p.total,
+            fromCache: p.fromCache,
+          });
+        },
+      });
+    } catch (primaryErr) {
+      console.warn('Tilawa init with primary wasm path failed, retrying with CDN fallback:', primaryErr);
+      engine = await createTilawa({
+        tier: 'auto',
+        wasmPaths: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.30.0/dist/',
+        onProgress: (p) => {
+          onProgress?.({
+            stage: p.stage as any,
+            fraction: p.fraction,
+            loaded: p.loaded,
+            total: p.total,
+            fromCache: p.fromCache,
+          });
+        },
+      });
+    }
 
     tilawaInstance = engine as unknown as TilawaEngineHandle;
 

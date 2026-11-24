@@ -124,7 +124,7 @@ export default function SettingsPage() {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] px-3.5 py-2.5 text-xs text-stone-900 dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-[#145A45] transition-all"
+                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#2E5E4E] bg-[#F8F7F2] dark:bg-[#1A382E] px-3.5 py-2.5 text-xs text-stone-900 dark:text-[#F4F7F5] font-medium focus:outline-none focus:ring-2 focus:ring-[#145A45] transition-all"
                 />
               </div>
 
@@ -136,7 +136,7 @@ export default function SettingsPage() {
                   type="text"
                   disabled
                   value={user?.email || 'حساب زائر محلي'}
-                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-stone-100 dark:bg-[#0E201A] px-3.5 py-2.5 text-xs text-stone-700 dark:text-[#D1DDD7] font-medium cursor-not-allowed opacity-100"
+                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#2E5E4E] bg-stone-100 dark:bg-[#163027] px-3.5 py-2.5 text-xs text-stone-700 dark:text-[#D1DDD7] font-medium cursor-not-allowed opacity-100"
                 />
               </div>
             </div>
@@ -171,7 +171,7 @@ export default function SettingsPage() {
                   placeholder="••••••••"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] px-3.5 py-2.5 text-xs text-stone-900 dark:text-white font-medium placeholder:text-stone-400 dark:placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#145A45] transition-all"
+                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#2E5E4E] bg-[#F8F7F2] dark:bg-[#1A382E] px-3.5 py-2.5 text-xs text-stone-900 dark:text-[#F4F7F5] font-medium placeholder:text-stone-400 dark:placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#145A45] transition-all"
                 />
               </div>
 
@@ -185,7 +185,7 @@ export default function SettingsPage() {
                   placeholder="••••••••"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] px-3.5 py-2.5 text-xs text-stone-900 dark:text-white font-medium placeholder:text-stone-400 dark:placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#145A45] transition-all"
+                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#2E5E4E] bg-[#F8F7F2] dark:bg-[#1A382E] px-3.5 py-2.5 text-xs text-stone-900 dark:text-[#F4F7F5] font-medium placeholder:text-stone-400 dark:placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#145A45] transition-all"
                 />
               </div>
             </div>
@@ -223,12 +223,12 @@ export default function SettingsPage() {
 
           <div className="space-y-4">
             {/* Daily Goal */}
-            <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#F8F7F2] dark:bg-[#0E201A] border border-[#E6E4DC] dark:border-[#24483B]">
+            <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#F8F7F2] dark:bg-[#1A382E] border border-[#E6E4DC] dark:border-[#2E5E4E]">
               <div>
                 <span className="text-xs font-bold text-stone-900 dark:text-[#F4F7F5] block">
                   تفعيل هدف الحفظ اليومي (اختياري)
                 </span>
-                <span className="text-[11px] text-stone-600 dark:text-[#B8C7C0]">
+                <span className="text-[11px] text-stone-600 dark:text-[#C5D5CD]">
                   تذكيرك بعدد آيات محددة يومياً بدون ضغط أو إلزام.
                 </span>
               </div>
@@ -248,14 +248,14 @@ export default function SettingsPage() {
                   min={1}
                   value={dailyGoalValue}
                   onChange={(e) => setDailyGoalValue(parseInt(e.target.value || '5', 10))}
-                  className="w-20 rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-white dark:bg-[#0E201A] text-stone-900 dark:text-white px-3 py-1.5 text-xs font-bold"
+                  className="w-20 rounded-xl border border-[#E6E4DC] dark:border-[#2E5E4E] bg-white dark:bg-[#1A382E] text-stone-900 dark:text-[#F4F7F5] px-3 py-1.5 text-xs font-bold"
                 />
                 <span className="text-stone-500 dark:text-[#B8C7C0] font-medium">آيات</span>
               </div>
             )}
 
             {/* Reminder Time */}
-            <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#F8F7F2] dark:bg-[#0E201A] border border-[#E6E4DC] dark:border-[#24483B]">
+            <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#F8F7F2] dark:bg-[#1A382E] border border-[#E6E4DC] dark:border-[#2E5E4E]">
               <span className="text-xs font-bold text-stone-900 dark:text-[#F4F7F5]">
                 وقت التذكير اليومي:
               </span>
@@ -263,7 +263,7 @@ export default function SettingsPage() {
                 type="time"
                 value={reminderTime}
                 onChange={(e) => setReminderTime(e.target.value)}
-                className="rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-white dark:bg-[#0E201A] text-stone-900 dark:text-white px-3 py-1.5 text-xs font-bold"
+                className="rounded-xl border border-[#E6E4DC] dark:border-[#2E5E4E] bg-white dark:bg-[#1A382E] text-stone-900 dark:text-[#F4F7F5] px-3 py-1.5 text-xs font-bold"
               />
             </div>
 
@@ -286,7 +286,7 @@ export default function SettingsPage() {
                     className={`p-3 rounded-xl border text-xs font-bold transition-all ${
                       encouragementStyle === s.id
                         ? 'border-[#145A45] dark:border-[#C7A75B] bg-[#145A45] dark:bg-[#1E745A] text-white shadow-xs'
-                        : 'border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] text-stone-700 dark:text-[#E2DFD6] hover:bg-stone-100 dark:hover:bg-[#16382c]'
+                        : 'border-[#E6E4DC] dark:border-[#2E5E4E] bg-[#F8F7F2] dark:bg-[#1A382E] text-stone-700 dark:text-[#F4F7F5] hover:bg-stone-100 dark:hover:bg-[#234b3e]'
                     }`}
                   >
                     {s.label}

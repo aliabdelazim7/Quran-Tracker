@@ -14,6 +14,15 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        source: "/ort/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
         source: "/(.*)",
         headers: [
           {
@@ -44,12 +53,12 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com blob:",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://cdn.jsdelivr.net blob:",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com data:",
               "img-src 'self' data: https: blob:",
               "worker-src 'self' blob:",
-              "connect-src 'self' https://ycdaunpbtwxofbnakeek.supabase.co https://*.supabase.co wss://*.supabase.co https://tilawa.dev https://*.tilawa.dev",
+              "connect-src 'self' https://ycdaunpbtwxofbnakeek.supabase.co https://*.supabase.co wss://*.supabase.co https://tilawa.dev https://*.tilawa.dev https://cdn.jsdelivr.net",
               "frame-ancestors 'none'",
               "object-src 'none'",
               "base-uri 'self'",
