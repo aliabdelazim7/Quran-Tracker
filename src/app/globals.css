@@ -64,20 +64,22 @@ body {
 /* Dropdown select and option high-contrast readability */
 select {
   color-scheme: light;
-  color: var(--text-main);
-  background-color: var(--surface);
+  color: #18201C !important;
+  background-color: #FFFFFF !important;
 }
 
-.dark select {
-  color-scheme: dark;
-  color: #F8FAF9;
-  background-color: #11251E;
+.dark select,
+html.dark select {
+  color-scheme: dark !important;
+  color: #FFFFFF !important;
+  background-color: #11251E !important;
 }
 
 select option,
-select optgroup {
+select optgroup,
+option {
   background-color: #FFFFFF !important;
-  color: #1A201C !important;
+  color: #18201C !important;
   font-family: 'Tajawal', sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -85,13 +87,65 @@ select optgroup {
 }
 
 .dark select option,
-.dark select optgroup {
-  background-color: #0F231D !important;
-  color: #F8FAF9 !important;
+.dark select optgroup,
+.dark option,
+html.dark option,
+html.dark select option {
+  background-color: #11251E !important;
+  color: #FFFFFF !important;
   font-family: 'Tajawal', sans-serif;
   font-size: 14px;
   font-weight: 600;
   padding: 8px 12px;
+}
+
+/* Form inputs, textareas high-contrast readability */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+textarea {
+  color: #18201C;
+  background-color: #FFFFFF;
+}
+
+.dark input[type="text"],
+.dark input[type="email"],
+.dark input[type="password"],
+.dark input[type="number"],
+.dark input[type="date"],
+.dark input[type="time"],
+.dark textarea,
+html.dark input[type="text"],
+html.dark input[type="email"],
+html.dark input[type="password"],
+html.dark input[type="number"],
+html.dark input[type="date"],
+html.dark input[type="time"],
+html.dark textarea {
+  color: #FFFFFF !important;
+  background-color: #0E201A !important;
+  border-color: #24483B !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder,
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #94A89E !important;
+}
+
+/* Disabled input high contrast in dark mode (overriding browser default user-agent text-fill) */
+.dark input:disabled,
+.dark textarea:disabled,
+html.dark input:disabled,
+html.dark textarea:disabled {
+  color: #D1DDD7 !important;
+  background-color: #0B1914 !important;
+  -webkit-text-fill-color: #D1DDD7 !important;
+  opacity: 1 !important;
 }
 
 /* Custom scrollbars */

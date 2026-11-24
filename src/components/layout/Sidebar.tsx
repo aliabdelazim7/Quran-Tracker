@@ -15,23 +15,25 @@ import {
   HeartHandshake,
   Bell,
   Settings,
-  LogOut
+  LogOut,
+  Sparkles
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useQuranApp } from '@/context/QuranAppContext';
 
 export const navItems = [
-  { href: '/dashboard', label: 'الرئيسية', icon: LayoutDashboard },
-  { href: '/quran', label: 'خريطة القرآن', icon: BookOpen },
-  { href: '/memorization', label: 'الحفظ والتسميع', icon: CheckCircle2 },
-  { href: '/revision', label: 'المراجعة والتثبيت', icon: RotateCcw },
-  { href: '/lessons', label: 'جلسات الشيخ', icon: GraduationCap },
-  { href: '/reading', label: 'ورد التلاوة', icon: Bookmark },
-  { href: '/statistics', label: 'الإحصائيات', icon: BarChart3 },
-  { href: '/achievements', label: 'الإنجازات', icon: Award },
+  { href: '/student/dashboard', label: 'الرئيسية', icon: LayoutDashboard },
+  { href: '/student/teacher', label: 'الشيخ المتابع والحلقة', icon: GraduationCap },
+  { href: '/student/quran', label: 'خريطة القرآن', icon: BookOpen },
+  { href: '/student/memorization', label: 'الحفظ والتسميع', icon: CheckCircle2 },
+  { href: '/student/revision', label: 'المراجعة والتثبيت', icon: RotateCcw },
+  { href: '/student/lessons', label: 'جلسات الشيخ', icon: Award },
+  { href: '/student/reading', label: 'ورد التلاوة', icon: Bookmark },
+  { href: '/student/statistics', label: 'الإحصائيات', icon: BarChart3 },
+  { href: '/achievements', label: 'الإنجازات', icon: Sparkles },
   { href: '/motivation', label: 'زاد الروح', icon: HeartHandshake },
-  { href: '/notifications', label: 'الإشعارات', icon: Bell },
-  { href: '/settings', label: 'الإعدادات', icon: Settings },
+  { href: '/student/notifications', label: 'الإشعارات', icon: Bell },
+  { href: '/student/settings', label: 'الإعدادات', icon: Settings },
 ];
 
 export const Sidebar: React.FC = () => {
@@ -84,7 +86,11 @@ export const Sidebar: React.FC = () => {
       <nav className="flex-1 px-4 py-2 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
-          const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
+          const strippedHref = item.href.replace('/student', '');
+          const isActive =
+            pathname === item.href ||
+            (strippedHref && pathname === strippedHref) ||
+            (item.href !== '/student/dashboard' && pathname.startsWith(item.href));
 
           return (
             <Link
@@ -92,12 +98,12 @@ export const Sidebar: React.FC = () => {
               href={item.href}
               className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                 isActive
-                  ? 'bg-[#145A45] text-white shadow-xs'
-                  : 'text-stone-600 dark:text-stone-300 hover:bg-[#F8F7F2] dark:hover:bg-[#142D25]'
+                  ? 'bg-[#145A45] text-white shadow-xs font-bold'
+                  : 'text-stone-700 dark:text-[#E2DFD6] hover:bg-[#F8F7F2] dark:hover:bg-[#142D25]'
               }`}
             >
               <div className="flex items-center gap-3">
-                <Icon className={`w-4 h-4 ${isActive ? 'text-[#C7A75B]' : 'text-stone-400'}`} />
+                <Icon className={`w-4 h-4 ${isActive ? 'text-[#C7A75B]' : 'text-stone-500 dark:text-[#A8BDA0]'}`} />
                 <span>{item.label}</span>
               </div>
               {item.href === '/notifications' && unreadCount > 0 && (

@@ -6,6 +6,7 @@ import { AppShell } from '@/components/layout/AppShell';
 import { useAuth } from '@/context/AuthContext';
 import { useQuranApp } from '@/context/QuranAppContext';
 import { WelcomeBackCard } from '@/components/dashboard/WelcomeBackCard';
+import { TeacherStatusCard } from '@/components/dashboard/TeacherStatusCard';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import { formatQuranRange, getSurah, TOTAL_AYAH_COUNT, TOTAL_SURAHS, TOTAL_JUZ } from '@/data/quranData';
 import { getRandomQuote, MOTIVATIONAL_QUOTES, MotivationalQuote } from '@/data/motivationalData';
@@ -244,6 +245,9 @@ export default function DashboardPage() {
             </span>
           </Link>
         </div>
+
+        {/* Teacher Follow-up Status Card */}
+        <TeacherStatusCard />
 
         {/* Section A: Overall Quran Progress Detailed Card */}
         <div className="p-6 rounded-3xl bg-white dark:bg-[#11251E] border border-[#E6E4DC] dark:border-[#1F3B32] shadow-xs space-y-5">

@@ -39,6 +39,12 @@ export type RevisionEvaluation =
   | 'needs_improvement'
   | 'must_repeat';
 
+export type UserRole = 'student' | 'sheikh' | 'admin';
+
+export type VerificationStatus = 'unverified' | 'pending' | 'verified' | 'rejected';
+
+export type RelationshipStatus = 'active' | 'revoked' | 'suspended';
+
 export interface Profile {
   id: string;
   display_name: string;
@@ -46,8 +52,70 @@ export interface Profile {
   language: string;
   timezone: string;
   preferred_theme: 'light' | 'dark' | 'system';
+  role: UserRole;
+  verification_status: VerificationStatus;
+  bio?: string | null;
+  phone?: string | null;
   created_at: string;
   updated_at: string;
+}
+
+export interface TeacherStudentRelationship {
+  id: string;
+  teacher_id: string;
+  student_id: string;
+  status: RelationshipStatus;
+  connected_at: string;
+  accepted_at?: string | null;
+  revoked_at?: string | null;
+  created_at: string;
+  updated_at: string;
+  teacher?: Profile;
+  student?: Profile;
+  permissions?: RelationshipPermissions;
+}
+
+export interface RelationshipPermissions {
+  id: string;
+  relationship_id: string;
+  can_view_profile: boolean;
+  can_view_memorization: boolean;
+  can_view_progress: boolean;
+  can_view_lessons: boolean;
+  can_view_assignments: boolean;
+  can_view_revision_history: boolean;
+  can_create_lessons: boolean;
+  can_record_evaluations: boolean;
+  can_create_assignments: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface TeacherInvitation {
+  id: string;
+  teacher_id: string;
+  invite_code: string;
+  token_hash: string;
+  expires_at: string;
+  accepted_at?: string | null;
+  accepted_by?: string | null;
+  revoked_at?: string | null;
+  created_at: string;
+  teacher?: Profile;
+}
+
+export interface AuditLog {
+  id: string;
+  actor_id?: string | null;
+  actor_role: string;
+  action: string;
+  resource_type: string;
+  resource_id?: string | null;
+  student_id?: string | null;
+  teacher_id?: string | null;
+  metadata?: Record<string, any>;
+  ip_address?: string | null;
+  created_at: string;
 }
 
 export interface QuranSurah {
@@ -89,6 +157,9 @@ export interface MemorizationAssignment {
   assigned_at: string;
   completed_at?: string | null;
   notes?: string | null;
+  created_by?: string | null;
+  created_by_role?: 'student' | 'sheikh' | 'system';
+  updated_by?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -101,6 +172,9 @@ export interface Lesson {
   sheikh_name: string;
   duration_minutes?: number | null;
   overall_notes?: string | null;
+  created_by?: string | null;
+  created_by_role?: 'student' | 'sheikh' | 'system';
+  updated_by?: string | null;
   created_at: string;
   updated_at: string;
   passages?: LessonPassage[];

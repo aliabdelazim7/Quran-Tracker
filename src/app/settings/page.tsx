@@ -108,7 +108,7 @@ export default function SettingsPage() {
 
         {/* 1. Personal Profile */}
         <div className="p-6 rounded-3xl bg-white dark:bg-[#152F26] border border-[#E6E4DC] dark:border-[#24483B] shadow-sm space-y-5">
-          <div className="flex items-center gap-2 text-stone-900 dark:text-stone-100 font-bold text-sm">
+          <div className="flex items-center gap-2 text-stone-900 dark:text-[#F4F7F5] font-bold text-sm">
             <User className="w-4 h-4 text-[#145A45] dark:text-[#C7A75B]" />
             <span>الملف الشخصي</span>
           </div>
@@ -116,7 +116,7 @@ export default function SettingsPage() {
           <form onSubmit={handleSaveProfile} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-semibold text-stone-700 dark:text-stone-200 block mb-1.5">
+                <label className="text-xs font-bold text-stone-700 dark:text-[#E2DFD6] block mb-1.5">
                   الاسم المعروض
                 </label>
                 <input
@@ -124,19 +124,19 @@ export default function SettingsPage() {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] px-3.5 py-2.5 text-xs text-stone-900 dark:text-stone-100 font-medium focus:outline-none focus:ring-2 focus:ring-[#145A45] transition-all"
+                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] px-3.5 py-2.5 text-xs text-stone-900 dark:text-white font-medium focus:outline-none focus:ring-2 focus:ring-[#145A45] transition-all"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-stone-700 dark:text-stone-200 block mb-1.5">
+                <label className="text-xs font-bold text-stone-700 dark:text-[#E2DFD6] block mb-1.5">
                   البريد الإلكتروني
                 </label>
                 <input
                   type="text"
                   disabled
                   value={user?.email || 'حساب زائر محلي'}
-                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-stone-100 dark:bg-[#0E201A]/60 px-3.5 py-2.5 text-xs text-stone-700 dark:text-stone-300 font-medium cursor-not-allowed opacity-90"
+                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-stone-100 dark:bg-[#0E201A] px-3.5 py-2.5 text-xs text-stone-700 dark:text-[#D1DDD7] font-medium cursor-not-allowed opacity-100"
                 />
               </div>
             </div>
@@ -154,7 +154,7 @@ export default function SettingsPage() {
 
         {/* 2. Security & Password */}
         <div className="p-6 rounded-3xl bg-white dark:bg-[#152F26] border border-[#E6E4DC] dark:border-[#24483B] shadow-sm space-y-5">
-          <div className="flex items-center gap-2 text-stone-900 dark:text-stone-100 font-bold text-sm">
+          <div className="flex items-center gap-2 text-stone-900 dark:text-[#F4F7F5] font-bold text-sm">
             <ShieldCheck className="w-4 h-4 text-[#145A45] dark:text-[#C7A75B]" />
             <span>الأمان وكلمة المرور</span>
           </div>
@@ -162,7 +162,7 @@ export default function SettingsPage() {
           <form onSubmit={handlePasswordChange} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-semibold text-stone-700 dark:text-stone-200 block mb-1.5">
+                <label className="text-xs font-bold text-stone-700 dark:text-[#E2DFD6] block mb-1.5">
                   كلمة المرور الجديدة
                 </label>
                 <input
@@ -171,12 +171,12 @@ export default function SettingsPage() {
                   placeholder="••••••••"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] px-3.5 py-2.5 text-xs text-stone-900 dark:text-stone-100 font-medium placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#145A45] transition-all"
+                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] px-3.5 py-2.5 text-xs text-stone-900 dark:text-white font-medium placeholder:text-stone-400 dark:placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#145A45] transition-all"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-stone-700 dark:text-stone-200 block mb-1.5">
+                <label className="text-xs font-bold text-stone-700 dark:text-[#E2DFD6] block mb-1.5">
                   تأكيد كلمة المرور
                 </label>
                 <input
@@ -185,7 +185,7 @@ export default function SettingsPage() {
                   placeholder="••••••••"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] px-3.5 py-2.5 text-xs text-stone-900 dark:text-stone-100 font-medium placeholder:text-stone-400 dark:placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#145A45] transition-all"
+                  className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] px-3.5 py-2.5 text-xs text-stone-900 dark:text-white font-medium placeholder:text-stone-400 dark:placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#145A45] transition-all"
                 />
               </div>
             </div>
@@ -225,10 +225,10 @@ export default function SettingsPage() {
             {/* Daily Goal */}
             <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#F8F7F2] dark:bg-[#0E201A] border border-[#E6E4DC] dark:border-[#24483B]">
               <div>
-                <span className="text-xs font-bold text-stone-900 dark:text-stone-100 block">
+                <span className="text-xs font-bold text-stone-900 dark:text-[#F4F7F5] block">
                   تفعيل هدف الحفظ اليومي (اختياري)
                 </span>
-                <span className="text-[11px] text-stone-600 dark:text-stone-300">
+                <span className="text-[11px] text-stone-600 dark:text-[#B8C7C0]">
                   تذكيرك بعدد آيات محددة يومياً بدون ضغط أو إلزام.
                 </span>
               </div>
@@ -242,34 +242,34 @@ export default function SettingsPage() {
 
             {dailyGoalEnabled && (
               <div className="flex items-center gap-2 text-xs px-2">
-                <span className="text-stone-700 dark:text-stone-200 font-semibold">الهدف اليومي:</span>
+                <span className="text-stone-700 dark:text-[#E2DFD6] font-semibold">الهدف اليومي:</span>
                 <input
                   type="number"
                   min={1}
                   value={dailyGoalValue}
                   onChange={(e) => setDailyGoalValue(parseInt(e.target.value || '5', 10))}
-                  className="w-20 rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-white dark:bg-[#0E201A] text-stone-900 dark:text-stone-100 px-3 py-1.5 text-xs font-bold"
+                  className="w-20 rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-white dark:bg-[#0E201A] text-stone-900 dark:text-white px-3 py-1.5 text-xs font-bold"
                 />
-                <span className="text-stone-500 dark:text-stone-300 font-medium">آيات</span>
+                <span className="text-stone-500 dark:text-[#B8C7C0] font-medium">آيات</span>
               </div>
             )}
 
             {/* Reminder Time */}
             <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#F8F7F2] dark:bg-[#0E201A] border border-[#E6E4DC] dark:border-[#24483B]">
-              <span className="text-xs font-bold text-stone-900 dark:text-stone-100">
+              <span className="text-xs font-bold text-stone-900 dark:text-[#F4F7F5]">
                 وقت التذكير اليومي:
               </span>
               <input
                 type="time"
                 value={reminderTime}
                 onChange={(e) => setReminderTime(e.target.value)}
-                className="rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-white dark:bg-[#0E201A] text-stone-900 dark:text-stone-100 px-3 py-1.5 text-xs font-bold"
+                className="rounded-xl border border-[#E6E4DC] dark:border-[#24483B] bg-white dark:bg-[#0E201A] text-stone-900 dark:text-white px-3 py-1.5 text-xs font-bold"
               />
             </div>
 
             {/* Encouragement Style */}
             <div className="space-y-2 pt-1">
-              <label className="text-xs font-bold text-stone-800 dark:text-stone-200 block">
+              <label className="text-xs font-bold text-stone-800 dark:text-[#E2DFD6] block">
                 أسلوب تشجيع الرفيق القرآني:
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -286,7 +286,7 @@ export default function SettingsPage() {
                     className={`p-3 rounded-xl border text-xs font-bold transition-all ${
                       encouragementStyle === s.id
                         ? 'border-[#145A45] dark:border-[#C7A75B] bg-[#145A45] dark:bg-[#1E745A] text-white shadow-xs'
-                        : 'border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-[#16382c]'
+                        : 'border-[#E6E4DC] dark:border-[#24483B] bg-[#F8F7F2] dark:bg-[#0E201A] text-stone-700 dark:text-[#E2DFD6] hover:bg-stone-100 dark:hover:bg-[#16382c]'
                     }`}
                   >
                     {s.label}

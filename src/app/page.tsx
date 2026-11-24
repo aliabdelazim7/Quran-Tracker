@@ -11,7 +11,11 @@ export default function Home() {
   useEffect(() => {
     if (!isLoading) {
       if (user) {
-        router.replace('/dashboard');
+        if (user.role === 'sheikh') {
+          router.replace('/sheikh/dashboard');
+        } else {
+          router.replace('/student/dashboard');
+        }
       } else {
         router.replace('/login');
       }

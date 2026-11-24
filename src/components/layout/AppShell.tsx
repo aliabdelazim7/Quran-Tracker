@@ -6,6 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Sidebar } from './Sidebar';
 import { MobileNav } from './MobileNav';
 import { AppHeader } from './AppHeader';
+import { isAllowedRoute } from '@/lib/authorization/guards';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -17,11 +18,18 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!isLoading && !user) {
-      // Allow auth pages and onboarding
-      const publicPaths = ['/login', '/register', '/forgot-password', '/onboarding'];
-      if (!publicPaths.includes(pathname)) {
-        router.push('/login');
+    if (!isLoading) {
+      if (!user) {
+        // Allow auth pages and onboarding
+        const publicPaths = ['/login', '/register', '/forgot-password', '/onboarding'];
+        if (!publicPaths.includes(pathname)) {
+          router.push('/login');
+        }
+      } else {
+        const check = isAllowedRoute(pathname, user.role);
+        if (!check.allowed && check.redirectTo) {
+          router.push(check.redirectTo);
+        }
       }
     }
   }, [user, isLoading, pathname, router]);

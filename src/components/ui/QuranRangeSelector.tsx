@@ -198,7 +198,6 @@ export const QuranRangeSelector: React.FC<QuranRangeSelectorProps> = ({
               <option
                 key={s.number}
                 value={s.number}
-                className="bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 py-1 font-medium"
               >
                 {s.number}. سورة {s.nameArabic} ({s.ayahCount} آية)
               </option>
@@ -216,7 +215,6 @@ export const QuranRangeSelector: React.FC<QuranRangeSelectorProps> = ({
               <option
                 key={j.juzNumber}
                 value={j.juzNumber}
-                className="bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 py-1 font-medium"
               >
                 {j.nameArabic} (من {getSurah(j.startSurah)?.nameArabic}:{j.startAyah} إلى {getSurah(j.endSurah)?.nameArabic}:{j.endAyah})
               </option>
@@ -245,7 +243,6 @@ export const QuranRangeSelector: React.FC<QuranRangeSelectorProps> = ({
                     <option
                       key={s.number}
                       value={s.number}
-                      className="bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 py-1 font-medium"
                     >
                       {s.number}. {s.nameArabic}
                     </option>
@@ -287,7 +284,6 @@ export const QuranRangeSelector: React.FC<QuranRangeSelectorProps> = ({
                     <option
                       key={s.number}
                       value={s.number}
-                      className="bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 py-1 font-medium"
                     >
                       {s.number}. {s.nameArabic}
                     </option>
