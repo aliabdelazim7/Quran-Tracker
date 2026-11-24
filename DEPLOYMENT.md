@@ -1,115 +1,76 @@
 # دليل نشر وتشغيل تطبيق "رحلتي مع القرآن"
 # Production Deployment & Operations Guide
 
-يوثق هذا الدليل الخطوات الكاملة لنشر تطبيق **"رحلتي مع القرآن"** (Rehlaty Ma'a Al-Quran) على بيئة الإنتاج السحابية، وربط قاعدة بيانات **Supabase PostgreSQL**، وإعدادات الاستضافة على **Vercel** وتفعيل تطبيق الويب التقدمي (**PWA**).
+يوثق هذا الدليل حالة النشر الإنتاجي الفعلي لتطبيق **"رحلتي مع القرآن"** (Rehlaty Ma'a Al-Quran)، وربط منصات **GitHub** و **Vercel** و **Supabase** وحالة خادم **Render**.
 
 ---
 
-## 1. البنية التقنية (Architecture Overview)
+## 1. روابط وبيانات البيئة الإنتاجية الحية (Live Production Endpoints)
 
-- **Frontend & App Engine**: Next.js 16 (App Router), React 19, TypeScript Strict, Tailwind CSS.
-- **Database & Auth**: Supabase PostgreSQL مع تطبيق سياسات حماية البيانات على مستوى الصفوف (Row Level Security - RLS).
-- **Offline & Cache Layer**: Service Worker + LocalStorage Optimistic UI + PWA Manifest.
-- **Quranic Data Engine**: مصحف حفص عن عاصم المعتمد برواية مجمع الملك فهد (6,236 آية، 114 سورة، 30 جزء، 240 ربع حزب).
-
----
-
-## 2. إعداد قاعدة بيانات Supabase (Database Setup)
-
-### الخطوة 1: إنشاء مشروع جديد في Supabase
-1. سجّل الدخول إلى [Supabase Dashboard](https://supabase.com/dashboard).
-2. أنشئ مشروعاً جديداً (`New Project`) باسم: `rehlaty-quran-prod`.
-3. اختر المنطقة الجغرافية الأقرب للمستخدمين (مثال: `Frankfurt (eu-central-1)` أو `Middle East / Bahrain`).
-4. احفظ كلمة مرور قاعدة البيانات (`Database Password`) بأمان.
-
-### الخطوة 2: تطبيق ملفات الترحيل البرمجية (SQL Migrations)
-توجه إلى **SQL Editor** في لوحة تحكم Supabase ونفذ الملفات التالية بالترتيب الدقيق:
-
-#### أ. تنفيذ المخطط العام وسياسات الأمان:
-قم بنسخ محتوى ملف `supabase/migrations/20261124_schema.sql` ولصقه في محرر الاستعلامات وتشغيله (`Run`).
-ينشئ هذا الملف:
-- جدول `profiles` المرتبط مباشرة بـ `auth.users`.
-- الجداول المرجعية للقرآن: `quran_surahs` و `quran_ayahs`.
-- جداول المستخدمين: `user_ayah_progress`, `memorization_assignments`, `lessons`, `lesson_passages`, `revision_sessions`, `reading_sessions`, `user_settings`, `user_achievements`, `user_notifications`.
-- الفهارس المسرعة (`Indexes`) على حقول البحث وتاريخ التسميع.
-- تفعيل RLS وسياسات العزل الكاملة لكل مستخدم.
-
-#### ب. توليد فهرس الآيات الـ 6236 آية بدقة:
-قم بنسخ محتوى ملف `supabase/migrations/20261124_ayahs_population.sql` وتشغيله لملء جدول `quran_ayahs` بالأرقام المرجعية العالمية وبيانات الأجزاء والأحزاب والأرباع.
-
-#### ج. إدخال البيانات المرجعية الأولية:
-قم بتشغيل ملف `supabase/seed.sql` لإدخال أسماء السور الـ 114 وبياناتها والأحاديث النبوية المعتمدة.
-
-### الخطوة 3: ضبط إعدادات المصادقة (Auth Settings)
-1. في تبويب **Authentication -> Providers -> Email**:
-   - تفعيل `Enable Email provider`.
-   - تفعيل `Confirm email` (أو إيقافه مؤقتاً لتسهيل تسجيل المستخدمين الجدد بدون انتظار رابط التفعيل).
-2. في تبويب **Authentication -> URL Configuration**:
-   - `Site URL`: رابط موقعك المباشر (مثال: `https://rehlaty-quran.vercel.app`).
-   - `Redirect URLs`: أضف:
-     - `https://rehlaty-quran.vercel.app/**`
-     - `https://rehlaty-quran.vercel.app/login`
-     - `http://localhost:3000/**`
-
----
-
-## 3. إعداد ونشر المشروع على Vercel (Vercel Deployment)
-
-### الخطوة 1: استيراد المشروع في Vercel
-1. ادخل إلى [Vercel Dashboard](https://vercel.com) واختر `Add New... -> Project`.
-2. اختر مستودع Git الخاص بالمشروع (`quran-app`).
-3. اختر الإطار: `Next.js`.
-
-### الخطوة 2: تكوين متغيرات البيئة (Environment Variables)
-في قسم **Environment Variables** على Vercel، أضف المفاتيح التالية:
-
-| المتغير | القيمة | الوصف |
+| المنصة | الخاصية | الرابط / المعرف الإنتاجي |
 |---|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | `https://your-project-id.supabase.co` | رابط مشروع Supabase العام |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `eyJhbGciOi...` | المفتاح المجهول العام (Safe for Client) |
-
-> [!CAUTION]
-> لا تقم أبداً بإضافة `SUPABASE_SERVICE_ROLE_KEY` إلى متغيرات البيئة في واجهة المتصفح أو رفعه لمستودع Git العام؛ فهذا المفتاح مخصص فقط للعمليات الإدارية الخلفية متجاوزاً سياسات RLS.
-
-### الخطوة 3: البناء والتشغيل (Build & Deploy)
-- انقر على **Deploy**.
-- سيقوم Vercel بتشغيل `npm run build` وتوليد جميع المسارات الـ 24 الثابتة والديناميكية مع دعم التحميل الجزئي (Partial Prerendering).
-
----
-
-## 4. إعدادات تطبيق الويب التقدمي (PWA & Offline Support)
-
-التطبيق مهيأ بالكامل ليعمل كتطبيق هاتف محمول أصيل:
-- ملف التعريف: [`public/manifest.json`](file:///public/manifest.json)
-- مشغل الخدمة: [`public/sw.js`](file:///public/sw.js)
-- أيقونات التطبيق بدقة فائقة:
-  - `public/icons/icon-192x192.png`
-  - `public/icons/icon-512x512.png`
-
-### متطلبات التثبيت على أجهزة المستخدمين:
-1. **شهادة أمان SSL/HTTPS إجبارية**: مشغل الخدمة (Service Worker) وميزات التثبيت لا تعمل إلا عبر اتصال مشفر `https://` (أو `localhost` في بيئة التطوير).
-2. **على أجهزة Android / Chrome**: سيظهر تلقائياً إشعار "إضافة رحلتي مع القرآن إلى الشاشة الرئيسية".
-3. **على أجهزة iOS / Safari**: يضغط المستخدم على أيقونة المشاركة (Share) ثم "إضافة إلى الصفحة الرئيسية" (Add to Home Screen).
+| **Vercel Production** | الرابط المباشر للإنتاج | [https://quran-tracker-gamma.vercel.app](https://quran-tracker-gamma.vercel.app) |
+| **Vercel Production** | نطاق الفريق البديل | [https://quran-tracker-ali-abdelazim-s-projects.vercel.app](https://quran-tracker-ali-abdelazim-s-projects.vercel.app) |
+| **Vercel Project** | اسم المشروع / المعرف | `quran-tracker` (`prj_RBRV6HshdC2hGOZCzNrHMMhfoXA3`) |
+| **GitHub Repository** | المستودع الأصلي المعتمد | [https://github.com/aliabdelazim7/Quran-Tracker.git](https://github.com/aliabdelazim7/Quran-Tracker.git) |
+| **GitHub Branch** | الفرع الإنتاجي | `main` (Automatic CD on Push) |
+| **Supabase Database** | رابط قاعدة البيانات | `https://ycdaunpbtwxofbnakeek.supabase.co` |
+| **Supabase Project** | اسم ومعرف المشروع | `Quran-Tracker` (`ycdaunpbtwxofbnakeek`) |
+| **Supabase Region** | المنطقة الجغرافية | `eu-west-1` (Europe - Ireland) |
+| **Render Service** | حالة الخدمة | **غير مطلوب (Not Required)** - معمارية خادمة بدون خادم (Serverless Next.js + Managed Postgres) |
 
 ---
 
-## 5. النسخ الاحتياطي واستعادة البيانات (Backup & Recovery)
+## 2. المعمارية التقنية (Production Architecture)
 
-1. **النسخ التلقائي في Supabase**:
-   - خدمة Supabase Pro توفر نسخاً احتياطياً يومياً لقاعدة بيانات PostgreSQL واستعادة في نقطة زمنية محددة (Point-in-Time Recovery).
-2. **تصدير المستخدم الذاتي (User Self-Export)**:
-   - يتيح التطبيق لكل مستخدم من صفحة الإعدادات تصدير كافة بياناته وسجلاته وحلقاته بصيغة `JSON` أو `CSV` بضغطة زر واحدة.
+- **Frontend & App Engine**: Next.js 16.4.6 (App Router مع Turbopack)، React 19، TypeScript Strict، Tailwind CSS.
+- **Database & Auth**: Supabase PostgreSQL 17.12 مع تفعيل كامل لسياسات حماية البيانات على مستوى الصفوف (Row Level Security - RLS).
+- **Multi-Role RBAC**: بوابتان مستقلتان ومنفصلتان تماماً:
+  - بوابة الطالب (`/student/*`): متابعة الحفظ، التكرار، الورد القرآني، وإدارة صلاحيات المشايخ.
+  - بوابة الشيخ (`/sheikh/*`): إدارة الطلاب، رصد الجلسات، التقييمات، والتكاليف المباشرة.
+- **Security & Integrity**:
+  - دعوات أحادية الاستخدام (`teacher_invitations`) مع تشفير التوكن.
+  - صلاحيات دقيقة (`relationship_permissions`) يتحكم بها الطالب.
+  - سجل تدقيق غير قابل للتعديل (`audit_logs`).
+  - عزل الجلسات الشخصية وقراءات الورد المستقلة عن رؤية المعلم.
+- **Quranic Reference Engine**:
+  - 114 سورة كاملة مع أسماء السور والنوع وعدد الآيات وبداية الأجزاء.
+  - 6,236 آية كنسخة معيارية مطابقة لمصحف مجمع الملك فهد برواية حفص عن عاصم.
+- **PWA & Offline First**:
+  - دعم كامل للتثبيت على Android و iOS عبر [`public/manifest.json`](file:///public/manifest.json).
+  - مشغل الخدمة [`public/sw.js`](file:///public/sw.js) للعمل دون اتصال بالإنترنت وتخزين السور محلياً.
 
 ---
 
-## 6. أوامر الصيانة والاختبار (Verification Commands)
+## 3. متغيرات البيئة الإنتاجية (Environment Variables)
 
-للتحقق من سلامة البناء وتكامل الاختبارات محلياً قبل إرسال أي تحديث للإنتاج:
+تم ضبط وتشفير المتغيرات الإنتاجية التالية داخل لوحة تحكم Vercel Production لجميع البيئات (`Production`, `Preview`, `Development`):
 
 ```bash
-# تشغيل كامل حزمة الاختبارات المؤتمتة (20 اختبار)
-npm test
-
-# فحص أنواع TypeScript وبناء حزمة الإنتاج
-npm run build
+NEXT_PUBLIC_SUPABASE_URL="https://ycdaunpbtwxofbnakeek.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." # (مشفر)
+NEXT_PUBLIC_APP_NAME="رحلتي مع القرآن"
 ```
+
+> [!CAUTION]
+> لا يتم تضمين `SUPABASE_SERVICE_ROLE_KEY` في أي من متغيرات الواجهة الأمامية أو مستودع Git العام؛ فهذا المفتاح مخصص حصرياً للعمليات الإدارية الآمنة.
+
+---
+
+## 4. إعدادات التكامل المستمر والنشر التلقائي (CI/CD Pipeline)
+
+- تم إعداد خط سير عمل GitHub Actions عبر [`.github/workflows/ci.yml`](file:///.github/workflows/ci.yml):
+  1. فحص الكود البرمجي عبر ESLint 9.
+  2. تشغيل 36 اختباراً تلقائياً للأمان والمنطق القرآني والصلاحيات (Node Test Runner).
+  3. التحقق من سلامة البناء الشامل (`next build`).
+- يتم ربط المستودع تلقائياً بـ Vercel؛ فبمجرد دمج أو دفع أي كود جديد إلى فرع `main`، يتم تشغيل البناء واختبارات الجودة ونشر التحديث مباشرة إلى الرابط الإنتاجي دون انقطاع في الخدمة (Zero-Downtime Deployment).
+
+---
+
+## 5. النسخ الاحتياطي وإدارة الكوارث (Disaster Recovery)
+
+1. **النسخ الاحتياطي في Supabase**:
+   - لقطات يومية آلية لقاعدة بيانات PostgreSQL.
+   - إمكانية التصدير اليدوي الفوري للمخطط والبيانات عبر Supabase CLI أو Management API.
+2. **النسخ الاحتياطي للشيفرة المصدرية**:
+   - الشيفرة محفوظة بالكامل ومحمية في مستودع GitHub المعتمد: `https://github.com/aliabdelazim7/Quran-Tracker.git`.
