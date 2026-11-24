@@ -2,6 +2,7 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
   --primary: #145A45;
   --primary-hover: #1b6f57;
   --primary-subtle: #e8f2ee;
@@ -20,6 +21,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --primary: #1E745A;
   --primary-hover: #268C6D;
   --primary-subtle: #123026;
@@ -55,6 +57,39 @@ body {
 .font-quran {
   font-family: 'Amiri', serif;
   line-height: 2.2;
+}
+
+/* Dropdown select and option high-contrast readability */
+select {
+  color-scheme: light;
+  color: var(--text-main);
+  background-color: var(--surface);
+}
+
+.dark select {
+  color-scheme: dark;
+  color: #F8FAF9;
+  background-color: #11251E;
+}
+
+select option,
+select optgroup {
+  background-color: #FFFFFF !important;
+  color: #1A201C !important;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 12px;
+}
+
+.dark select option,
+.dark select optgroup {
+  background-color: #0F231D !important;
+  color: #F8FAF9 !important;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 12px;
 }
 
 /* Custom scrollbars */

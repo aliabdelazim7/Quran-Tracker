@@ -195,7 +195,11 @@ export const QuranRangeSelector: React.FC<QuranRangeSelectorProps> = ({
             className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-[#F8F7F2] dark:bg-[#0B1914] px-3 py-2 text-sm text-[#252B27] dark:text-[#EDF3EF] focus:outline-none focus:ring-2 focus:ring-[#145A45]"
           >
             {SURAHS.map((s) => (
-              <option key={s.number} value={s.number}>
+              <option
+                key={s.number}
+                value={s.number}
+                className="bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 py-1 font-medium"
+              >
                 {s.number}. سورة {s.nameArabic} ({s.ayahCount} آية)
               </option>
             ))}
@@ -209,7 +213,11 @@ export const QuranRangeSelector: React.FC<QuranRangeSelectorProps> = ({
             className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-[#F8F7F2] dark:bg-[#0B1914] px-3 py-2 text-sm text-[#252B27] dark:text-[#EDF3EF] focus:outline-none focus:ring-2 focus:ring-[#145A45]"
           >
             {JUZS.map((j) => (
-              <option key={j.juzNumber} value={j.juzNumber}>
+              <option
+                key={j.juzNumber}
+                value={j.juzNumber}
+                className="bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 py-1 font-medium"
+              >
                 {j.nameArabic} (من {getSurah(j.startSurah)?.nameArabic}:{j.startAyah} إلى {getSurah(j.endSurah)?.nameArabic}:{j.endAyah})
               </option>
             ))}
@@ -231,10 +239,14 @@ export const QuranRangeSelector: React.FC<QuranRangeSelectorProps> = ({
                 <select
                   value={startSurah}
                   onChange={(e) => handleStartSurahChange(parseInt(e.target.value, 10))}
-                  className="w-full rounded-md border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] px-2 py-1.5 text-xs text-[#252B27] dark:text-[#EDF3EF]"
+                  className="w-full rounded-md border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] px-2 py-1.5 text-xs text-[#252B27] dark:text-[#EDF3EF] font-semibold"
                 >
                   {SURAHS.map((s) => (
-                    <option key={s.number} value={s.number}>
+                    <option
+                      key={s.number}
+                      value={s.number}
+                      className="bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 py-1 font-medium"
+                    >
                       {s.number}. {s.nameArabic}
                     </option>
                   ))}
@@ -269,10 +281,14 @@ export const QuranRangeSelector: React.FC<QuranRangeSelectorProps> = ({
                 <select
                   value={endSurah}
                   onChange={(e) => handleEndSurahChange(parseInt(e.target.value, 10))}
-                  className="w-full rounded-md border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] px-2 py-1.5 text-xs text-[#252B27] dark:text-[#EDF3EF]"
+                  className="w-full rounded-md border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] px-2 py-1.5 text-xs text-[#252B27] dark:text-[#EDF3EF] font-semibold"
                 >
                   {SURAHS.map((s) => (
-                    <option key={s.number} value={s.number}>
+                    <option
+                      key={s.number}
+                      value={s.number}
+                      className="bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 py-1 font-medium"
+                    >
                       {s.number}. {s.nameArabic}
                     </option>
                   ))}

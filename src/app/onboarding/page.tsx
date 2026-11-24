@@ -270,7 +270,7 @@ export default function OnboardingPage() {
                 <div className="p-4 rounded-2xl bg-[#F8F7F2] dark:bg-[#0B1914] border border-[#E6E4DC] dark:border-[#1F3B32] space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
-                      <label className="text-xs text-stone-500 block mb-1">السورة</label>
+                      <label className="text-xs font-semibold text-stone-700 dark:text-stone-300 block mb-1">السورة</label>
                       <select
                         value={currentSurah}
                         onChange={(e) => {
@@ -279,11 +279,15 @@ export default function OnboardingPage() {
                           const s = SURAHS.find((item) => item.number === sNum);
                           setCurrentEndAyah(s?.ayahCount || 7);
                         }}
-                        className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] p-2 text-xs"
+                        className="w-full rounded-xl border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 p-2.5 text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#145A45]"
                       >
                         {SURAHS.map((s) => (
-                          <option key={s.number} value={s.number}>
-                            {s.number}. {s.nameArabic}
+                          <option
+                            key={s.number}
+                            value={s.number}
+                            className="bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 py-1.5 font-medium"
+                          >
+                            {s.number}. سورة {s.nameArabic} ({s.ayahCount} آية)
                           </option>
                         ))}
                       </select>

@@ -155,7 +155,7 @@ export default function MemorizationPage() {
                       <select
                         value={item.status}
                         onChange={(e) => updateAssignmentStatus(item.id, e.target.value as any)}
-                        className="rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-[#F8F7F2] dark:bg-[#0B1914] px-2 py-1 text-xs text-stone-700 dark:text-stone-200"
+                        className="rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-[#F8F7F2] dark:bg-[#0B1914] px-2 py-1 text-xs text-stone-900 dark:text-stone-100 font-medium"
                       >
                         <option value="in_progress">قيد الحفظ</option>
                         <option value="ready_for_recitation">جاهز للتسميع</option>

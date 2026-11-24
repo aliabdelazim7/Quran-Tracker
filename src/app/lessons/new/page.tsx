@@ -258,7 +258,7 @@ export default function NewLessonPage() {
                         onChange={(e) =>
                           updatePassage(pIndex, { passageType: e.target.value as AssignmentType })
                         }
-                        className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] p-2 text-xs"
+                        className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 font-medium p-2 text-xs"
                       >
                         <option value="new_memorization">حفظ جديد لأول مرة</option>
                         <option value="previous_memorization">ماضٍ قريب (تسميع سابق)</option>
@@ -268,7 +268,7 @@ export default function NewLessonPage() {
                     </div>
 
                     <div>
-                      <label className="text-[11px] font-semibold text-stone-600 block mb-1">
+                      <label className="text-[11px] font-semibold text-stone-600 dark:text-stone-300 block mb-1">
                         تقييم الشيخ لهذا المقطع ⭐
                       </label>
                       <select
@@ -276,7 +276,7 @@ export default function NewLessonPage() {
                         onChange={(e) =>
                           updatePassage(pIndex, { evaluation: e.target.value as SheikhEvaluation })
                         }
-                        className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] p-2 text-xs font-bold"
+                        className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 p-2 text-xs font-bold"
                       >
                         <option value="excellent">ممتاز (إتقان تام بدون أخطاء)</option>
                         <option value="very_good">جيد جداً (خطأ أو خطآن يسيران)</option>
@@ -328,11 +328,15 @@ export default function NewLessonPage() {
                         const s = SURAHS.find((item) => item.number === sNum);
                         setNextEndAyah(s?.ayahCount || 25);
                       }}
-                      className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] p-2 text-xs"
+                      className="w-full rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 font-medium p-2 text-xs"
                     >
                       {SURAHS.map((s) => (
-                        <option key={s.number} value={s.number}>
-                          {s.number}. {s.nameArabic}
+                        <option
+                          key={s.number}
+                          value={s.number}
+                          className="bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 py-1 font-medium"
+                        >
+                          {s.number}. سورة {s.nameArabic} ({s.ayahCount} آية)
                         </option>
                       ))}
                     </select>

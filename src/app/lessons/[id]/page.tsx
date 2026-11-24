@@ -221,7 +221,7 @@ function LessonDetailInner() {
                         <select
                           value={p.evaluation}
                           onChange={(e) => updatePassageField(idx, 'evaluation', e.target.value as SheikhEvaluation)}
-                          className="rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] px-2 py-1 text-xs font-semibold"
+                          className="rounded-lg border border-[#E6E4DC] dark:border-[#1F3B32] bg-white dark:bg-[#11251E] text-stone-900 dark:text-stone-100 px-2 py-1 text-xs font-semibold"
                         >
                           <option value="excellent">ممتاز ⭐</option>
                           <option value="very_good">جيد جداً 👍</option>
