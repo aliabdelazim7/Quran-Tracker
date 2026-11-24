@@ -14,6 +14,7 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     "tests/**",
     "QA_EVIDENCE/**",
+    "public/**",
   ]),
   {
     rules: {
