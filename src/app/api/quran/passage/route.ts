@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
       words: ay.w.map((w, idx) => ({
         surah: ay.s,
         ayah: ay.a,
-        wordIndex: idx,
+        wordIndex: idx + 1, // 1-based index matching Tilawa SDK specification
         text: w,
       })),
     }));

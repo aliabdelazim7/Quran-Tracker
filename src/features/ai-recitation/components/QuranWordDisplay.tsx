@@ -38,6 +38,16 @@ export const QuranWordDisplay: React.FC<Props> = ({
     );
   };
 
+  const firstAyah = ayahs[0];
+  const surahNumber = firstAyah?.surah;
+  // Basmala is Ayah 1 in Surah Al-Fatihah, and does not exist in Surah At-Tawbah (9).
+  // Also only display decorative Basmala header if starting from Ayah 1 of the Surah.
+  const showBasmalaHeader =
+    surahNumber !== undefined &&
+    surahNumber !== 1 &&
+    surahNumber !== 9 &&
+    firstAyah?.ayah === 1;
+
   return (
     <div
       className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 sm:p-10 shadow-inner max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-emerald-700/50 text-right leading-loose select-none"
@@ -49,9 +59,16 @@ export const QuranWordDisplay: React.FC<Props> = ({
           <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800/60 inline-block mb-2">
             سورة {surahName}
           </span>
-          <h2 className="text-2xl font-serif text-emerald-300 tracking-wide font-bold">
-            بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
-          </h2>
+          {showBasmalaHeader && (
+            <h2 className="text-2xl font-serif text-emerald-300 tracking-wide font-bold">
+              بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+            </h2>
+          )}
+          {surahNumber === 1 && (
+            <p className="text-xs text-emerald-400/80 font-sans mt-1">
+              فاتحة الكتاب والسبع المثاني
+            </p>
+          )}
         </div>
       )}
 
@@ -71,14 +88,22 @@ export const QuranWordDisplay: React.FC<Props> = ({
                 currentPosition?.surah === w.surah &&
                 currentPosition?.ayah === w.ayah &&
                 currentPosition?.word === w.wordIndex &&
-                currentPosition?.state === 'locked';
+                currentPosition?.state !== 'lost';
 
               const finding = getWordFinding(w.surah, w.ayah, w.wordIndex);
+
+              const isPastRecited =
+                currentPosition &&
+                currentPosition.state !== 'lost' &&
+                (w.ayah < currentPosition.ayah ||
+                  (w.ayah === currentPosition.ayah && w.wordIndex < currentPosition.word));
 
               let badgeStyle = 'text-slate-200 hover:text-emerald-300';
               if (isCurrent) {
                 badgeStyle =
-                  'bg-emerald-500/20 text-emerald-300 font-bold px-1.5 py-0.5 rounded-lg ring-2 ring-emerald-400 shadow-md animate-pulse';
+                  currentPosition?.state === 'locked'
+                    ? 'bg-emerald-500/25 text-emerald-200 font-bold px-1.5 py-0.5 rounded-lg ring-2 ring-emerald-400 shadow-md scale-105 inline-block transform transition-transform'
+                    : 'bg-emerald-500/15 text-emerald-300 font-semibold px-1.5 py-0.5 rounded-lg ring-1 ring-emerald-400/50 animate-pulse inline-block';
               } else if (finding) {
                 if (finding.state === 'confirmed') {
                   badgeStyle =
@@ -89,6 +114,10 @@ export const QuranWordDisplay: React.FC<Props> = ({
                 } else if (finding.state === 'resolved') {
                   badgeStyle = 'bg-teal-500/20 text-teal-300 px-1 rounded';
                 }
+              } else if (isPastRecited) {
+                badgeStyle = 'text-emerald-100/90 font-medium';
+              } else if (currentPosition && currentPosition.state !== 'lost') {
+                badgeStyle = 'text-slate-400/80 hover:text-slate-200';
               }
 
               return (
@@ -98,7 +127,7 @@ export const QuranWordDisplay: React.FC<Props> = ({
                   title={
                     finding
                       ? `${finding.translatedLabel} (${finding.state})`
-                      : `الآية ${w.ayah}، كلمة ${w.wordIndex + 1}`
+                      : `الآية ${w.ayah}، كلمة ${w.wordIndex}`
                   }
                   className={`inline-block mx-1 transition-all duration-200 cursor-default ${badgeStyle}`}
                 >

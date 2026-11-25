@@ -90,8 +90,8 @@ describe('AI Recitation Module Tests', () => {
       const rawPos: RawPositionEvent = {
         type: 'position',
         timeMs: 1500,
-        expected: { surah: 1, ayah: 2, word: 0 },
-        observed: [{ word: { surah: 1, ayah: 2, word: 0 }, confidence: 0.95 }],
+        expected: { surah: 1, ayah: 2, word: 1 },
+        observed: [{ word: { surah: 1, ayah: 2, word: 1 }, confidence: 0.95 }],
         state: 'locked',
       };
 
@@ -99,7 +99,7 @@ describe('AI Recitation Module Tests', () => {
       assert.ok(mapped);
       assert.strictEqual(mapped?.surah, 1);
       assert.strictEqual(mapped?.ayah, 2);
-      assert.strictEqual(mapped?.word, 0);
+      assert.strictEqual(mapped?.word, 1);
       assert.strictEqual(mapped?.state, 'locked');
       assert.strictEqual(mapped?.confidence, 0.95);
       assert.strictEqual(mapped?.expected?.surah, 1);

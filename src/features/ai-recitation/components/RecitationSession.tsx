@@ -43,38 +43,57 @@ export const RecitationSession: React.FC<Props> = ({
   const [ayahs, setAyahs] = useState<AyahDisplayItem[]>([]);
   const [isLoadingPassage, setIsLoadingPassage] = useState(false);
 
-  // Load passage text on mount
+  // 1. Memorization mode: Load fixed passage once on session start
   useEffect(() => {
-    async function fetchPassage() {
-      if (mode === 'memorization' && passageConfig) {
-        setIsLoadingPassage(true);
-        try {
-          const items = await loadPassageText(
-            passageConfig.surah,
-            passageConfig.fromAyah,
-            passageConfig.toAyah
-          );
-          setAyahs(items);
-        } catch (e) {
+    let active = true;
+    if (mode === 'memorization' && passageConfig) {
+      setIsLoadingPassage(true);
+      loadPassageText(
+        passageConfig.surah,
+        passageConfig.fromAyah,
+        passageConfig.toAyah
+      )
+        .then((items) => {
+          if (active) setAyahs(items);
+        })
+        .catch((e) => {
           console.error('Failed to load passage text:', e);
-        } finally {
-          setIsLoadingPassage(false);
-        }
-      } else if (mode === 'free' && currentPosition?.surah) {
-        // In free recitation, dynamically load surrounding ayahs when position is detected
-        try {
-          const items = await loadPassageText(
-            currentPosition.surah,
-            Math.max(1, currentPosition.ayah - 2),
-            currentPosition.ayah + 3
-          );
-          setAyahs(items);
-        } catch (e) {}
+        })
+        .finally(() => {
+          if (active) setIsLoadingPassage(false);
+        });
+    }
+    return () => {
+      active = false;
+    };
+  }, [mode, passageConfig?.surah, passageConfig?.fromAyah, passageConfig?.toAyah]);
+
+  // 2. Free recitation mode: Dynamically load surrounding window when new surah/ayah detected
+  const currentSurah = currentPosition?.surah;
+  const currentAyah = currentPosition?.ayah;
+
+  useEffect(() => {
+    let active = true;
+    if (mode === 'free' && currentSurah && currentAyah) {
+      const alreadyLoaded = ayahs.some((a) => a.surah === currentSurah && a.ayah === currentAyah);
+      if (!alreadyLoaded || ayahs.length === 0) {
+        loadPassageText(
+          currentSurah,
+          Math.max(1, currentAyah - 2),
+          currentAyah + 4
+        )
+          .then((items) => {
+            if (active && items.length > 0) setAyahs(items);
+          })
+          .catch((e) => {
+            console.error('Failed to load dynamic free recitation text:', e);
+          });
       }
     }
-
-    fetchPassage();
-  }, [mode, passageConfig, currentPosition?.surah, currentPosition?.ayah]);
+    return () => {
+      active = false;
+    };
+  }, [mode, currentSurah, currentAyah, ayahs]);
 
   const surahNum = passageConfig?.surah || currentPosition?.surah;
   const surahMeta = surahNum ? SURAHS.find((s) => s.number === surahNum) : null;
@@ -102,7 +121,7 @@ export const RecitationSession: React.FC<Props> = ({
             <QuranWordDisplay
               ayahs={ayahs}
               currentPosition={currentPosition}
-              findings={confirmedFindings}
+              findings={[...confirmedFindings, ...suspectedFindings, ...resolvedFindings]}
               surahName={surahMeta?.nameArabic}
               isFreeRecitation={mode === 'free'}
             />
@@ -112,7 +131,7 @@ export const RecitationSession: React.FC<Props> = ({
           <div className="bg-slate-900/50 border border-slate-800/60 rounded-xl p-3 text-xs text-slate-400 flex items-center justify-between">
             <span>💡 اقرأ بهدوء وترتيل ليتابع النظام تلاوتك بدقة.</span>
             <span className="text-emerald-400 font-mono">
-              {currentPosition ? `الآية ${currentPosition.ayah}، كلمة ${currentPosition.word + 1}` : 'بانتظار صوتك'}
+              {currentPosition ? `الآية ${currentPosition.ayah}، كلمة ${currentPosition.word}` : 'بانتظار صوتك'}
             </span>
           </div>
         </div>
