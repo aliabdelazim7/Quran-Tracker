@@ -116,6 +116,16 @@ export function useRecitationSession(engine: TilawaEngineHandle | null) {
           if (event.type === 'position') {
             const pos = mapPositionEvent(event as RawPositionEvent);
             if (pos) {
+              // In memorization mode, strictly reject positions outside the declared passage
+              if (selectedMode === 'memorization' && passage) {
+                if (pos.surah !== passage.surah) {
+                  return;
+                }
+                if (pos.ayah < passage.fromAyah || pos.ayah > passage.toAyah) {
+                  return;
+                }
+              }
+
               setCurrentPosition(pos);
               // Track recited word key
               const wordKey = `${pos.surah}:${pos.ayah}:${pos.word}`;
@@ -123,6 +133,16 @@ export function useRecitationSession(engine: TilawaEngineHandle | null) {
             }
           } else if (event.type === 'checker') {
             const finding = mapCheckerEvent(event as RawCheckerEvent);
+
+            // In memorization mode, ignore out-of-range findings
+            if (selectedMode === 'memorization' && passage) {
+              if (finding.location.surah !== passage.surah) return;
+              if (
+                finding.location.ayah < passage.fromAyah ||
+                finding.location.ayah > passage.toAyah
+              )
+                return;
+            }
 
             if (finding.state === 'suspected') {
               setSuspectedFindings((prev) => {

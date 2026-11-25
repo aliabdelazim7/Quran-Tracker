@@ -9,6 +9,7 @@ import {
 import {
   mapPositionEvent,
   mapCheckerEvent,
+  normalizePhonemes,
 } from '../src/features/ai-recitation/lib/event-mapper.ts';
 import type {
   RawPositionEvent,
@@ -102,6 +103,11 @@ describe('AI Recitation Module Tests', () => {
       assert.strictEqual(mapped?.state, 'locked');
       assert.strictEqual(mapped?.confidence, 0.95);
       assert.strictEqual(mapped?.expected?.surah, 1);
+    });
+
+    test('normalizes raw Tilawa phonemes to clean Arabic text', () => {
+      assert.strictEqual(normalizePhonemes('ررَحمَاانِ'), 'رَّحمَانِ');
+      assert.strictEqual(normalizePhonemes('ررَحِۦۦم'), 'رَّحِيم');
     });
 
     test('maps raw CheckerEvent preserving unique event ID and location', () => {

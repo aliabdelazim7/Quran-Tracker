@@ -71,6 +71,31 @@ export function mapPositionEvent(event: RawPositionEvent): RecitationPosition | 
   };
 }
 
+/**
+ * Normalizes Tilawa raw internal phoneme strings into clean, readable Arabic words.
+ * Handles doubled consonants (shaddah), prolonged vowels (aa, uu, ii), and Quranic phonetic markers.
+ */
+export function normalizePhonemes(str?: string): string | undefined {
+  if (!str) return undefined;
+
+  let s = str.trim();
+
+  // Normalize phonetic representations from Tilawa v1
+  // 1. Long vowels
+  s = s.replace(/اا/g, 'ا');
+  s = s.replace(/وو/g, 'و');
+  s = s.replace(/[ۦي]{2,}/g, 'ي');
+  s = s.replace(/ۦ/g, 'ي');
+
+  // 2. Doubled letters representing shaddah (e.g. ررَ -> رَّ, ببِ -> بِّ)
+  s = s.replace(/([ء-ي])\1([ًٌٍَُِّْ]?)/g, '$1ّ$2');
+
+  // 3. Clean any non-Arabic characters
+  s = s.replace(/[^\u0600-\u06FF\s]/g, '');
+
+  return s.trim() || str;
+}
+
 export function mapCheckerEvent(event: RawCheckerEvent): RecitationFinding {
   const normalizedClass: MemorizationErrorClass = [
     'wrong_word',
@@ -92,8 +117,8 @@ export function mapCheckerEvent(event: RawCheckerEvent): RecitationFinding {
       ayah: event.location.ayah,
       word: event.location.word,
     },
-    expected: event.expected,
-    observed: event.observed,
+    expected: normalizePhonemes(event.expected),
+    observed: normalizePhonemes(event.observed),
     confidence: event.confidence || 0,
     timeMs: event.timeMs || 0,
     translatedLabel: translated.label,

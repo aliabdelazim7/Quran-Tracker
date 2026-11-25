@@ -101,6 +101,7 @@ export async function getOrInitTilawa(
     try {
       engine = await createTilawa({
         tier: 'auto',
+        providers: ['wasm'],
         wasmPaths: wasmDir,
         onProgress: (p) => {
           onProgress?.({
@@ -116,6 +117,7 @@ export async function getOrInitTilawa(
       console.warn('Tilawa init with primary wasm path failed, retrying with CDN fallback:', primaryErr);
       engine = await createTilawa({
         tier: 'auto',
+        providers: ['wasm'],
         wasmPaths: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.30.0/dist/',
         onProgress: (p) => {
           onProgress?.({
